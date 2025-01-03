@@ -31,6 +31,8 @@ public:
 
 	const CSteamID& GetCSteamID() const;
 	CSteamID& GetCSteamID();
+
+	FString ToString() const;
 	
 	bool IsValid() const;
 };

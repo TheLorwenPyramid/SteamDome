@@ -1,7 +1,6 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "Wrappers/SteamId.h"
+#include "Structs/SteamId.h"
 
 #include <steam/steam_api.h>
 #include "Kismet/KismetStringLibrary.h"
@@ -61,6 +60,12 @@ const CSteamID& FSteamId::GetCSteamID() const
 CSteamID& FSteamId::GetCSteamID()
 {
 	return UnderlyingSteamID;
+}
+
+
+FString FSteamId::ToString() const
+{
+	return FString::Printf(TEXT("%llu"), UnderlyingSteamID.ConvertToUint64());
 }
 
 
