@@ -14,6 +14,9 @@ UGetFileDetailsAsyncAction* UGetFileDetailsAsyncAction::GetFileDetails(
 	auto* Instance = NewObject<UGetFileDetailsAsyncAction>();
 	Instance->WorldContext = WorldContextObject;
 	Instance->Filename = Filename;
+	Instance->SteamCallResult.Init(
+		FOnFileDetailsReadyDelegate::CreateUObject(Instance, &UGetFileDetailsAsyncAction::OnGetFileDetails)
+	);
 
 	Instance->RegisterWithGameInstance(WorldContextObject);
 
@@ -25,18 +28,8 @@ void UGetFileDetailsAsyncAction::Activate()
 {
 	Super::Activate();
 
-	GetFileDetailsInternal = MakeUnique<FGetFileDetailsInternal>();
-	GetFileDetailsInternal->OnGetFileDetailsEvent.BindUObject(this, &ThisClass::OnGetFileDetails);
-
-	GetFileDetailsInternal->GetFileDetails(Filename);
-}
-
-
-void UGetFileDetailsAsyncAction::SetReadyToDestroy()
-{
-	GetFileDetailsInternal.Reset();
-
-	Super::SetReadyToDestroy();
+	const SteamAPICall_t ApiCallId = SteamApps()->GetFileDetails(TCHAR_TO_UTF8(*Filename));
+	SteamCallResult.Bind(ApiCallId);
 }
 
 
@@ -54,17 +47,4 @@ void UGetFileDetailsAsyncAction::OnGetFileDetails(FileDetailsResult_t* FileDetai
 	OnCompleted.Broadcast(bSuccess, FFileDetailsResult(*FileDetailsResult));
 		
 	SetReadyToDestroy();
-}
-
-
-void FGetFileDetailsInternal::GetFileDetails(const FString& Filename)
-{
-	const SteamAPICall_t ApiCallId = SteamApps()->GetFileDetails(TCHAR_TO_UTF8(*Filename));
-	OnGetFileDetailsFinished.Set(ApiCallId, this, &FGetFileDetailsInternal::OnGetFileDetails);
-}
-
-
-void FGetFileDetailsInternal::OnGetFileDetails(FileDetailsResult_t* FileDetailsResult, bool bIOFailure)
-{
-	OnGetFileDetailsEvent.ExecuteIfBound(FileDetailsResult, bIOFailure);
 }
