@@ -13,6 +13,6 @@ that should always be enabled when enabling any interface.
 Additionally, the project includes UI elements and logic to test each method when possible.
 
 ## Progress
-- `SteamApps`
-  - Missing `GetFileDetails` async implementation
-  - Missing all tests
+### SteamApps
+All (non-obsolete) methods are implemented, only Missing testing.
+
