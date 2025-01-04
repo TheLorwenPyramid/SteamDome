@@ -4,13 +4,15 @@
 #include "Subsystems/SteamAppsSubsystem.h"
 
 #include <steam/isteamapps.h>
+#include <steam/isteamutils.h>
 
 #include "Structs/AppId.h"
 #include "Structs/UInt64.h"
 #include "Structs/SteamId.h"
 #include "Structs/DepotId.h"
-#include "Kismet/GameplayStatics.h"
 #include "Structs/DLCData.h"
+#include "Helpers/TempString.h"
+#include "Kismet/GameplayStatics.h"
 
 
 USteamAppsSubsystem* USteamAppsSubsystem::Get(const UObject* WorldContextObject)
@@ -22,10 +24,10 @@ USteamAppsSubsystem* USteamAppsSubsystem::Get(const UObject* WorldContextObject)
 void USteamAppsSubsystem::GetDLCDataByIndex(
 	const int32 DLCIndex, bool& bExists, FDLCData& DLCData, const int32 MaxExpectedLength
 ) {
-	char* Buffer = new char[MaxExpectedLength];
+	const FTempString TempString(MaxExpectedLength);
 
-	bExists = SteamApps()->BGetDLCDataByIndex(DLCIndex, &DLCData.AppId.AppId, &DLCData.bAvailable, Buffer, MaxExpectedLength);
-	DLCData.Name = FString(UTF8_TO_TCHAR(Buffer));
+	bExists = SteamApps()->BGetDLCDataByIndex(DLCIndex, &DLCData.AppId.AppId, &DLCData.bAvailable, TempString.Start(), MaxExpectedLength);
+	DLCData.Name = TempString.ToString();
 }
 
 /*
@@ -35,6 +37,8 @@ bool USteamAppsSubsystem::GetDLCDataByIndex(const int32 DLCIndex, FAppId& AppId,
 
 	const bool bSuccess = SteamApps()->BGetDLCDataByIndex(DLCIndex, &AppId.AppId, &bAvailable, Buffer, MaxExpectedLength);
 	Name = FString(UTF8_TO_TCHAR(Buffer));
+	
+	delete Buffer;
 
 	return bSuccess;
 }
@@ -114,10 +118,10 @@ int32 USteamAppsSubsystem::GetAppBuildId()
 
 void USteamAppsSubsystem::GetAppInstallDir(const FAppId& AppId, FString& Folder, const int32 MaxExpectedLength)
 {
-	char* Buffer = new char[MaxExpectedLength];
+	const FTempString TempString(MaxExpectedLength);
 
-	const uint32 Bytes = SteamApps()->GetAppInstallDir(AppId.AppId, Buffer, MaxExpectedLength);
-	Folder = FString(UTF8_TO_TCHAR(Buffer), Bytes);
+	const uint32 Bytes = SteamApps()->GetAppInstallDir(AppId.AppId, TempString.Start(), MaxExpectedLength);
+	Folder = TempString.ToString();
 }
 
 
@@ -140,10 +144,10 @@ TArray<FString> USteamAppsSubsystem::GetAvailableGameLanguages()
 
 bool USteamAppsSubsystem::GetCurrentBetaName(FString& Name, const int32 MaxExpectedLength)
 {
-	char* Buffer = new char[MaxExpectedLength];
+	const FTempString TempString(MaxExpectedLength);
 
-	const bool bInBeta = SteamApps()->GetCurrentBetaName(Buffer, MaxExpectedLength);
-	Name = FString(UTF8_TO_TCHAR(Buffer));
+	const bool bInBeta = SteamApps()->GetCurrentBetaName(TempString.Start(), MaxExpectedLength);
+	Name = TempString.ToString();
 
 	return bInBeta;
 }
@@ -203,10 +207,10 @@ void USteamAppsSubsystem::GetFileDetails(const FString& Filename)
 
 FString USteamAppsSubsystem::GetLaunchCommandLine(const int32 MaxExpectedLength)
 {
-	char* Buffer = new char[MaxExpectedLength];
-
-	const int32 Bytes = SteamApps()->GetLaunchCommandLine(Buffer, MaxExpectedLength);
-	return FString(UTF8_TO_TCHAR(Buffer), Bytes);
+	const FTempString TempString(MaxExpectedLength);
+	const int32 Bytes = SteamApps()->GetLaunchCommandLine(TempString.Start(), MaxExpectedLength);
+	
+	return TempString.ToString();
 }
 
 
