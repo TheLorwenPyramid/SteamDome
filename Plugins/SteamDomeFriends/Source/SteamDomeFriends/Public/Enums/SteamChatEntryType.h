@@ -4,6 +4,12 @@
 #include "SteamChatEntryType.generated.h"
 
 
+/**
+ * Chat Entry Types.
+ *
+ * Returned by ISteamFriends::GetFriendMessage, ISteamFriends::GetClanChatMessage and
+ * ISteamMatchmaking::GetLobbyChatEntry.
+ */
 UENUM(BlueprintType)
 enum class ESteamChatEntryType : uint8
 {

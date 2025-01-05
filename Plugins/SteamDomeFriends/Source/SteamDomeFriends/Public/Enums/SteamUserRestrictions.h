@@ -7,7 +7,7 @@
 /**
  * User restriction flags. These are returned by GetUserRestrictions.
  *
- * @note Can be used as a bitfield.
+ * @note Can be used as a bitfield in C++.
  */
 UENUM(BlueprintType)
 enum class ESteamUserRestriction : uint8
@@ -23,8 +23,11 @@ enum class ESteamUserRestriction : uint8
 };
 
 
-/** Converts a Bitfield in to a Set of ESteamUserRestriction */
-STEAMDOMEFRIENDS_API TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield);
+namespace ESteamUserRestrictionHelper
+{
+	/** Converts a Bitfield in to a Set of ESteamUserRestriction */
+	STEAMDOMEFRIENDS_API TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield);
 
-/** Converts a Set of ESteamUserRestriction in to a Bitfield */
-STEAMDOMEFRIENDS_API int32 ConvertSteamUserRestrictionsToBitfield(const TSet<ESteamUserRestriction>& Set);
+	/** Converts a Set of ESteamUserRestriction in to a Bitfield */
+	STEAMDOMEFRIENDS_API int32 ConvertSteamUserRestrictionsToBitfield(const TSet<ESteamUserRestriction>& Set);
+}

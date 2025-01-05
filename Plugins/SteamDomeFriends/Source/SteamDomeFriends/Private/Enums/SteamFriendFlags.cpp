@@ -9,7 +9,7 @@
 #define AS_INT(Value) static_cast<int32>(Value)
 
 
-int32 ConvertSteamFriendFlagsSetToBitfield(const TSet<ESteamFriendFlags>& Flags)
+int32 ESteamFriendFlagsHelper::ConvertSteamFriendFlagsSetToBitfield(const TSet<ESteamFriendFlags>& Flags)
 {
 	if (Flags.Contains(ESteamFriendFlags::All))
 	{

@@ -4,6 +4,9 @@
 #include "SteamActivateGameOverlayToWebPageMode.generated.h"
 
 
+/**
+ * Game Overlay web page modes
+ */
 UENUM(BlueprintType)
 enum class ESteamActivateGameOverlayToWebPageMode : uint8
 {

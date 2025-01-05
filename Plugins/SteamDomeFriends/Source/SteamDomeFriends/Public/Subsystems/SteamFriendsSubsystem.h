@@ -7,6 +7,8 @@
 #include "Structs/SteamId.h"
 #include "Enums/OverlayDialog.h"
 #include "Enums/SteamActivateGameOverlayToWebPageMode.h"
+#include "Enums/SteamCommunityProfileItemProperty.h"
+#include "Enums/SteamCommunityProfileItemType.h"
 #include "Enums/SteamFriendFlags.h"
 #include "Enums/SteamFriendRelationship.h"
 #include "Enums/SteamOverlayToStoreFlag.h"
@@ -451,7 +453,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @return The players old persona name at the given index.
 	 *		   Returns an empty string when there are no further items in the history.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FString GetFriendPersonaNameHistory(const FSteamId SteamIdFriend, const int32 PersonaName);
 
 
@@ -466,7 +468,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param SteamIdFriend The Steam ID of the other user.
 	 * @return The friend state of the specified user. (Online, Offline, In-Game, etc)
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static ESteamPersonaState GetFriendPersonaState(const FSteamId SteamIdFriend);
 
 
@@ -476,7 +478,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param SteamIdFriend The Steam ID of the other user.
 	 * @return How the users know each other.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static ESteamFriendRelationship GetFriendRelationship(const FSteamId SteamIdFriend);
 
 
@@ -487,7 +489,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param Key The Rich Presence key to request.
 	 * @return Returns an empty string ("") if the specified key is not set.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FString GetFriendRichPresence(const FSteamId SteamIdFriend, const FString& Key);
 
 
@@ -498,7 +500,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param KeyIndex An index between 0 and GetFriendRichPresenceKeyCount.
 	 * @return Returns an empty string ("") if the index is invalid or the specified user has no Rich Presence data available.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FString GetFriendRichPresenceKeyByIndex(const FSteamId SteamIdFriend, const int32 KeyIndex);
 
 
@@ -512,7 +514,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param SteamIdFriend The Steam ID of the user to get the Rich Presence Key Count of.
 	 * @return Returns 0 if there is no Rich Presence information for the specified user.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendRichPresenceKeyCount(const FSteamId SteamIdFriend);
 
 
@@ -525,7 +527,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * 
 	 * @return The number of friends groups the current user has.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendsGroupCount();
 
 
@@ -537,7 +539,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param FriendsGroupIndex An index between 0 and GetFriendsGroupCount.
 	 * @return Invalid indices return an invalid FriendsGroupId.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FFriendsGroupId GetFriendsGroupIDByIndex(const int32 FriendsGroupIndex);
 
 
@@ -549,7 +551,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param FriendsGroupId The friends group ID to get the number of friends in.
 	 * @return The number of friends in the specified friends group.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendsGroupMembersCount(const FFriendsGroupId FriendsGroupId);
 
 
@@ -565,7 +567,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param MembersCount This should match the number of elements allocated pOutSteamIDMembers and the value
 	 *		  returned by GetFriendsGroupMembersCount.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static void GetFriendsGroupMembersList(FFriendsGroupId FriendsGroupId, TArray<FSteamId>& SteamIdMembers, const int32 MembersCount);
 
 
@@ -575,7 +577,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param FriendsGroupId The friends group ID to get the name of.
 	 * @return The friend groups name in UTF-8 format. Returns NULL if the group ID is invalid.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FString GetFriendsGroupName(const FFriendsGroupId FriendsGroupId);
 
 
@@ -589,7 +591,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 *		   and queues it to be downloaded from the Steam servers. When it gets downloaded a PersonaStateChange_t
 	 *		   callback will be posted with m_nChangeFlags including k_EPersonaChangeSteamLevel.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendSteamLevel(FSteamId SteamIdFriend);
 
 
@@ -609,7 +611,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 *		   Returns -1 if the avatar image data has not been loaded yet and requests that it gets download.
 	 *		   In this case wait for a AvatarImageLoaded_t callback and then call this again.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetLargeFriendAvatar(const FSteamId SteamIdFriend);
 
 
@@ -627,7 +629,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @return A Steam image handle which is used with ISteamUtils::GetImageSize and ISteamUtils::GetImageRGBA.
 	 *		   Returns 0 if no avatar is set for the user.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetMediumFriendAvatar(const FSteamId SteamIdFriend);
 
 
@@ -640,7 +642,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * 
 	 * @return The current user's persona name.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FString GetPersonaName();
 
 
@@ -651,7 +653,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * 
 	 * @return The friend state of the current user. (Online, Offline, In-Game, etc)
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static ESteamPersonaState GetPersonaState();
 
 
@@ -661,7 +663,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @param SteamIdPlayer The Steam ID of the user.
 	 * @return Empty if the no nickname has been set for that user.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static FString GetPlayerNickname(const FSteamId SteamIdPlayer);
 
 
@@ -679,7 +681,7 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * @return A Steam image handle which is used with ISteamUtils::GetImageSize and ISteamUtils::GetImageRGBA.
 	 *		   Returns 0 if no avatar is set for the user.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static int32 GetSmallFriendAvatar(const FSteamId SteamIdFriend);
 
 
@@ -693,9 +695,335 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 	 * 
 	 * @return 
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	static TSet<ESteamUserRestriction> GetUserRestrictions();
 
+
+	/**
+	 * Checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc)
+	 * 
+	 * @param SteamIdFriend The Steam user to check the friend status of.
+	 * @param FriendFlags A set of Flags to check against.
+	 * @return true if the specified user meets any of the criteria specified in FriendFlags; otherwise, false.
+	 */
 	UFUNCTION(BlueprintCallable)
-	static TSet<ESteamUserRestriction> TestSteamUserRestrictions(const TSet<ESteamUserRestriction>& Restrictions);
+	static bool HasFriend(const FSteamId SteamIdFriend, const TSet<ESteamFriendFlags>& FriendFlags);
+	static bool HasFriend(const FSteamId SteamIdFriend, const int32 FriendFlags);
+
+
+	/**
+	 * Invites a friend or clan member to the current game using a special invite string.
+	 *
+	 * If the target user accepts the invite then the ConnectString gets added to the command-line
+	 * when launching the game.
+	 * If the game is already running for that user, then they will receive a
+	 * GameRichPresenceJoinRequested callback with the connect string.
+	 * 
+	 * @param SteamIdFriend The Steam ID of the friend to invite.
+	 * @param ConnectionString A string that lets the friend know how to join the game (I.E. the game server IP).
+	 *		  This can not be longer than specified in k_cchMaxRichPresenceValueLength.
+	 * @return true if the invite was successfully sent.
+	 *		   false under the following conditions:
+	 *			-  The Steam ID provided to steamIDFriend was invalid.
+	 *			-  The Steam ID provided to steamIDFriend is not a friend or
+	 *			   does not share the same Steam Group as the current user.
+	 *			-  The value provided to ConnectString was too long.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool InviteUserToGame(const FSteamId SteamIdFriend, const FString& ConnectionString);
+
+
+	/**
+	 * Checks if a user in the Steam group chat room is an admin.
+	 * 
+	 * @param SteamIdClanChat The Steam ID of the Steam group chat room.
+	 * @param SteamIdUser The Steam ID of the user to check the admin status of.
+	 * @return true if the specified user is an admin.
+	 *		   false if the user is not an admin, if the current user is not in the chat room specified,
+	 *		   or the specified user is not in the chat room.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool IsClanChatAdmin(const FSteamId SteamIdClanChat, const FSteamId SteamIdUser);
+
+
+	/**
+	 * Checks if the Steam group is public.
+	 * 
+	 * @param SteamIdClan The Steam ID of the Steam group.
+	 * @return true if the specified group is public, false if the specified group is not public
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool IsClanPublic(const FSteamId SteamIdClan);
+
+
+	/**
+	 * Checks if the Steam group is an official game group/community hub.
+	 * 
+	 * @param SteamIdClan The Steam ID of the Steam group.
+	 * @return true if the specified group is an official game group/community hub, false otherwise.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool IsClanOfficialGameGroup(const FSteamId SteamIdClan);
+
+
+	/**
+	 * Checks if the Steam Group chat room is open in the Steam UI.
+	 * 
+	 * @param SteamIdClanChat The Steam ID of the Steam group chat room to check.
+	 * @return true if the specified Steam group chat room is opened; otherwise, false.
+	 *		   This also returns false if the specified Steam group chat room is unknown.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool IsClanChatWindowOpenInSteam(const FSteamId SteamIdClanChat);
+
+	// TODO: Async method
+	// UFUNCTION(BlueprintCallable)
+	// static SteamAPICall_t IsFollowing( CSteamID steamID );
+
+	/**
+	 * @deprecated This API is deprecated.
+	 *
+	 * Checks if a specified user is in a source (Steam group, chat room, lobby, or game server).
+	 * 
+	 * @param SteamIdUser The user to check if they are in the source.
+	 * @param SteamIdSource The source to check for the user.
+	 * @return true if the local user can see that steamIDUser is a member or in steamIDSource; otherwise, false.
+	 */
+	// UFUNCTION(meta=(DeprecatedFunction))
+	// static bool IsUserInSource(const FSteamId SteamIdUser, const FSteamId SteamIdSource);
+
+	// TODO: Async method
+	// static SteamAPICall_t JoinClanChatRoom( CSteamID steamIDClan );
+
+	/**
+	 * Leaves a Steam group chat that the user has previously entered with JoinClanChatRoom.
+	 *
+	 * @note Triggers a GameConnectedChatLeave callback.
+	 * 
+	 * @param SteamIdClan The Steam ID of the Steam group chat to leave.
+	 * @return true if user is in the specified chat room, otherwise false.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool LeaveClanChatRoom(const FSteamId SteamIdClan);
+
+
+	/**
+	 * Opens the specified Steam group chat room in the Steam UI.
+	 * 
+	 * @param SteamIdClanChat The Steam ID of the Steam group chat room to open.
+	 *
+	 * @see See Also: IsClanChatWindowOpenInSteam, CloseClanChatWindowInSteam
+	 * 
+	 * @return true if the user successfully entered the Steam group chat room.
+	 *		   false in one of the following situations:
+	 *			 - The provided Steam group chat room does not exist or the user does not have access to join it.
+	 *			 - The current user is currently rate limited.
+	 *			 - The current user is chat restricted.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool OpenClanChatWindowInSteam(const FSteamId SteamIdClanChat);
+
+
+	/**
+	 * Sends a message to a Steam friend.
+	 * 
+	 * @param SteamIdFriend The Steam ID of the friend to send the message to.
+	 * @param Message The UTF-8 formatted message to send.
+	 * @return true if the message was successfully sent. false if the current user is rate limited or chat restricted.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool ReplyToFriendMessage(const FSteamId SteamIdFriend, const FString& Message);
+
+	// TODO: Async method
+	// UFUNCTION(BlueprintCallable)
+	// SteamAPICall_t RequestClanOfficerList( CSteamID steamIDClan );
+
+	/**
+	 * Requests Rich Presence data from a specific user.
+	 *
+	 * This is used to get the Rich Presence information from a user that is not a friend of the current user,
+	 * like someone in the same lobby or game server.
+	 *
+	 * This function is rate limited, if you call this too frequently for a particular user then it will just
+	 * immediately post a callback without requesting new data from the server.
+	 *
+	 * @note Triggers a FriendRichPresenceUpdate callback.
+	 * 
+	 * @param SteamIdFriend The Steam ID of the user to request the rich presence of.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static void RequestFriendRichPresence(const FSteamId SteamIdFriend);
+
+
+	/**
+	 * Requests the persona name and optionally the avatar of a specified user.
+	 *
+	 * @note NOTE: It's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them.
+	 * 
+	 * @param SteamIdUser The user to request the information of.
+	 * @param bRequireNameOnly Retrieve the Persona name only (true)? Or both the name and the avatar (false)?
+	 * @return Triggers a PersonaStateChange callback.
+	 *		   true means that the data has being requested, and a PersonaStateChange
+	 *		   callback will be posted when it's retrieved.
+	 *		   false means that we already have all the details about that user,
+	 *		   and functions that require this information can be used immediately.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool RequestUserInformation(const FSteamId SteamIdUser, const bool bRequireNameOnly);
+
+
+	/**
+	 * Sends a message to a Steam group chat room.
+	 * 
+	 * @param SteamIdClanChat The Steam ID of the group chat to send the message to.
+	 * @param Message The UTF-8 formatted message to send. This can be up to 2048 characters long.
+	 * @return true if the message was successfully sent.
+	 *		   false under one of the following circumstances:
+	 *			- The current user is not in the specified group chat.
+	 *			- The current user is not connected to Steam.
+	 *			- The current user is rate limited.
+	 *			- The current user is chat restricted.
+	 *			- The message in pchText exceeds 2048 characters.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool SendClanChatMessage(const FSteamId SteamIdClanChat, const FString& Message);
+
+
+	/**
+	 * Let Steam know that the user is currently using voice chat in game.
+	 *
+	 * This will suppress the microphone for all voice communication in the Steam UI.
+	 * 
+	 * @param bSpeaking Did the user start speaking in game (true) or stopped speaking in game (false)?
+	 */
+	UFUNCTION(BlueprintCallable)
+	static void SetInGameVoiceSpeaking(const bool bSpeaking);
+
+
+	/**
+	 * Listens for Steam friends chat messages.
+	 *
+	 * You can then show these chats inline in the game. For example, the chat system in Dota 2.
+	 *
+	 * @note Triggers a GameConnectedFriendChatMsg_t callback.
+	 *
+	 * After enabling this you will receive GameConnectedFriendChatMsg callbacks whenever the user
+	 * receives a chat message. You can get the actual message data from this callback with GetFriendMessage.
+	 * You can send messages with ReplyToFriendMessage.
+	 * @param bInterceptEnabled Turn friends message interception on (true) or off (false)?
+	 */
+	UFUNCTION(BlueprintCallable)
+	static void SetListenForFriendsMessages(const bool bInterceptEnabled);
+
+
+	// TODO: Async method
+	// static SteamAPICall_t SetPersonaName( const char *pchPersonaName );
+
+	/**
+	 * Mark a target user as 'played with'.
+	 *
+	 * NOTE: The current user must be in game with the other player for the association to work.
+	 *
+	 * You can view the players you have recently played with on the Steam community and in the Steam Overlay.
+	 * 
+	 * @param SteamIdUserPlayedWith The other user that we have played with.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static void SetPlayedWith(const FSteamId SteamIdUserPlayedWith);
+
+
+	/**
+	 * Sets a Rich Presence key/value for the current user that is automatically shared to all friends
+	 * playing the same game.
+	 *
+	 * Each user can have up to 20 keys set as defined by k_cchMaxRichPresenceKeys.
+	 *
+	 * There are two special keys used for viewing/joining games:
+	 *	- "status": A UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list.
+	 *	- "connect": A UTF-8 string that contains the command-line for how a friend can connect to a game.
+	 *	  This enables the 'join game' button in the 'view game info' dialog, in the steam friends list right click
+	 *	  menu, and on the players Steam community profile. Be sure your app implements
+	 *	  ISteamApps::GetLaunchCommandLine so you can disable the popup warning when launched via a command line.
+	 *
+	 * There are three additional special keys used by the new Steam Chat:
+	 *	- "steam_display" - Names a rich presence localization token that will be displayed in the viewing user's
+	 *	  selected language in the Steam client UI. See Rich Presence Localization for more info, including a link
+	 *	  to a page for testing this rich presence data. If steam_display is not set to a valid localization tag,
+	 *	  then rich presence will not be displayed in the Steam client.
+	 *	- "steam_player_group" - When set, indicates to the Steam client that the player is a member of a particular
+	 *	  group. Players in the same group may be organized together in various places in the Steam UI.
+	 *	  This string could identify a party, a server, or whatever grouping is relevant for your game.
+	 *	  The string itself is not displayed to users.
+	 *	- "steam_player_group_size" - When set, indicates the total number of players in the steam_player_group.
+	 *	  The Steam client may use this number to display additional information about a group when all the members
+	 *	  are not part of a user's friends list. (For example, "Bob, Pete, and 4 more".)
+	 *
+	 * You can clear all the keys for the current user with ClearRichPresence.
+	 *
+	 * To get rich presence keys for friends see: GetFriendRichPresence.
+	 * 
+	 * @param Key The rich presence 'key' to set. This can not be longer than specified in k_cchMaxRichPresenceKeyLength.
+	 * @param Value The rich presence 'value' to associate with pchKey. This can not be longer than specified in k_cchMaxRichPresenceValueLength.
+	 *			    If this is set to an empty string ("") or NULL then the key is removed if it's set.
+	 * @return true if the rich presence was set successfully.
+	 *		   false under the following conditions:
+	 *			- Key was longer than k_cchMaxRichPresenceKeyLength or had a length of 0.
+	 *			- Value was longer than k_cchMaxRichPresenceValueLength.
+	 *			- The user has reached the maximum amount of rich presence keys as defined by k_cchMaxRichPresenceKeys.
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool SetRichPresence(const FString& Key, const FString& Value);
+
+	// TODO: Async method
+	// static SteamAPICall_t RequestEquippedProfileItems( CSteamID steamID);
+
+	/**
+	 * After calling RequestEquippedProfileItems, you can use this function to check if the user has a type
+	 * of profile item equipped or not.
+	 *
+	 * See Also: RequestEquippedProfileItems, GetProfileItemPropertyString, GetProfileItemPropertyUint
+	 * 
+	 * @param SteamId The user that you had already retrieved equipped items for
+	 * @param ItemType Type of item you want to see is equipped or not
+	 * @return true if the itemType is equipped for the user, false if the itemType is not equipped for the user
+	 */
+	UFUNCTION(BlueprintCallable)
+	static bool HasEquippedProfileItem(const FSteamId SteamId,const ESteamCommunityProfileItemType ItemType);
+
+
+	/**
+	 * Returns a string property for a user's equipped profile item.
+	 *
+	 * See Also: RequestEquippedProfileItems, GetProfileItemPropertyUint
+	 * 
+	 * @param SteamId The user that you had already retrieved equipped items for
+	 * @param ItemType Type of item you are retrieving the property for
+	 * @param Prop The string property you want to retrieve
+	 * @return 
+	 */
+	UFUNCTION(BlueprintCallable)
+	static FString GetProfileItemPropertyString(
+		const FSteamId SteamId,
+		const ESteamCommunityProfileItemType ItemType,
+		const ESteamCommunityProfileItemProperty Prop
+	);
+
+
+	/**
+	 * Returns a signed int64 (the original Steam method returns an unsigned integer) property
+	 * for a user's equipped profile item.
+	 *
+	 * See Also: RequestEquippedProfileItems, GetProfileItemPropertyString
+	 * 
+	 * @param SteamId The user that you had already retrieved equipped items for
+	 * @param ItemType Type of item you are retrieving the property for
+	 * @param Prop The unsigned integer property you want to retrieve
+	 * @return 
+	 */
+	UFUNCTION(BlueprintCallable)
+	static int64 GetProfileItemPropertyUint(
+		const FSteamId SteamId,
+		const ESteamCommunityProfileItemType ItemType,
+		const ESteamCommunityProfileItemProperty Prop
+	);
 };

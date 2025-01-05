@@ -14,7 +14,7 @@
 
 void USteamFriendsSubsystem::ActivateGameOverlay(const EOverlayDialogSelf OverlayDialog)
 {
-	SteamFriends()->ActivateGameOverlay(OverlayDialogSelfToCharPtr(OverlayDialog));
+	SteamFriends()->ActivateGameOverlay(EOverlayDialogHelper::OverlayDialogSelfToCharPtr(OverlayDialog));
 }
 
 
@@ -32,7 +32,9 @@ void USteamFriendsSubsystem::ActivateGameOverlayToStore(const FAppId AppId, cons
 
 void USteamFriendsSubsystem::ActivateGameOverlayToUser(const EOverlayDialogUser OverlayDialog, const FSteamId SteamId)
 {
-	SteamFriends()->ActivateGameOverlayToUser(OverlayDialogUserToCharPtr(OverlayDialog), SteamId.GetCSteamID());
+	SteamFriends()->ActivateGameOverlayToUser(
+		EOverlayDialogHelper::OverlayDialogUserToCharPtr(OverlayDialog), SteamId.GetCSteamID()
+	);
 }
 
 
@@ -159,7 +161,7 @@ int32 USteamFriendsSubsystem::GetCoplayFriendCount()
 
 FSteamId USteamFriendsSubsystem::GetFriendByIndex(const int32 FriendIndex, const TSet<ESteamFriendFlags>& FriendFlags)
 {
-	return GetFriendByIndex(FriendIndex, ConvertSteamFriendFlagsSetToBitfield(FriendFlags));
+	return GetFriendByIndex(FriendIndex, ESteamFriendFlagsHelper::ConvertSteamFriendFlagsSetToBitfield(FriendFlags));
 }
 
 
@@ -382,13 +384,143 @@ int32 USteamFriendsSubsystem::GetSmallFriendAvatar(const FSteamId SteamIdFriend)
 TSet<ESteamUserRestriction> USteamFriendsSubsystem::GetUserRestrictions()
 {
 	const int32 Flags = SteamFriends()->GetUserRestrictions();
-	return ConvertBitfieldToSteamUserRestrictions(Flags);
+	return ESteamUserRestrictionHelper::ConvertBitfieldToSteamUserRestrictions(Flags);
 }
 
 
-TSet<ESteamUserRestriction> USteamFriendsSubsystem::TestSteamUserRestrictions(
-	const TSet<ESteamUserRestriction>& Restrictions
+bool USteamFriendsSubsystem::HasFriend(const FSteamId SteamIdFriend, const TSet<ESteamFriendFlags>& FriendFlags)
+{
+	const int32 Bitfield = ESteamFriendFlagsHelper::ConvertSteamFriendFlagsSetToBitfield(FriendFlags);
+	return HasFriend(SteamIdFriend, Bitfield);
+}
+
+
+bool USteamFriendsSubsystem::HasFriend(const FSteamId SteamIdFriend, const int32 FriendFlags)
+{
+	return SteamFriends()->HasFriend(SteamIdFriend.GetCSteamID(), FriendFlags);
+}
+
+
+bool USteamFriendsSubsystem::InviteUserToGame(const FSteamId SteamIdFriend, const FString& ConnectionString)
+{
+	return SteamFriends()->InviteUserToGame(SteamIdFriend.GetCSteamID(), TCHAR_TO_UTF8(*ConnectionString));
+}
+
+
+bool USteamFriendsSubsystem::IsClanChatAdmin(const FSteamId SteamIdClanChat, const FSteamId SteamIdUser)
+{
+	return SteamFriends()->IsClanChatAdmin(SteamIdClanChat.GetCSteamID(), SteamIdUser.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::IsClanPublic(const FSteamId SteamIdClan)
+{
+	return SteamFriends()->IsClanPublic(SteamIdClan.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::IsClanOfficialGameGroup(const FSteamId SteamIdClan)
+{
+	return SteamFriends()->IsClanOfficialGameGroup(SteamIdClan.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::IsClanChatWindowOpenInSteam(const FSteamId SteamIdClanChat)
+{
+	return SteamFriends()->IsClanChatWindowOpenInSteam(SteamIdClanChat.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::LeaveClanChatRoom(const FSteamId SteamIdClan)
+{
+	return SteamFriends()->LeaveClanChatRoom(SteamIdClan.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::OpenClanChatWindowInSteam(const FSteamId SteamIdClanChat)
+{
+	return SteamFriends()->OpenClanChatWindowInSteam(SteamIdClanChat.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::ReplyToFriendMessage(const FSteamId SteamIdFriend, const FString& Message)
+{
+	return SteamFriends()->ReplyToFriendMessage(SteamIdFriend.GetCSteamID(), TCHAR_TO_UTF8(*Message));
+}
+
+
+void USteamFriendsSubsystem::RequestFriendRichPresence(const FSteamId SteamIdFriend)
+{
+	return SteamFriends()->RequestFriendRichPresence(SteamIdFriend.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::RequestUserInformation(const FSteamId SteamIdUser, const bool bRequireNameOnly)
+{
+	return SteamFriends()->RequestUserInformation(SteamIdUser.GetCSteamID(), bRequireNameOnly);
+}
+
+
+bool USteamFriendsSubsystem::SendClanChatMessage(const FSteamId SteamIdClanChat, const FString& Message)
+{
+	return SteamFriends()->SendClanChatMessage(SteamIdClanChat.GetCSteamID(), TCHAR_TO_UTF8(*Message));
+}
+
+
+void USteamFriendsSubsystem::SetInGameVoiceSpeaking(const bool bSpeaking)
+{
+	SteamFriends()->SetInGameVoiceSpeaking(CSteamID(), bSpeaking);
+}
+
+
+void USteamFriendsSubsystem::SetListenForFriendsMessages(const bool bInterceptEnabled)
+{
+	// Because it always returns true (as based on the Steamworks API docs)
+	// ignore the result and return nothign, so users are not confused and do not try to handle
+	// a non-error situation
+	SteamFriends()->SetListenForFriendsMessages(bInterceptEnabled);
+}
+
+
+void USteamFriendsSubsystem::SetPlayedWith(const FSteamId SteamIdUserPlayedWith)
+{
+	SteamFriends()->SetPlayedWith(SteamIdUserPlayedWith.GetCSteamID());
+}
+
+
+bool USteamFriendsSubsystem::SetRichPresence(const FString& Key, const FString& Value)
+{
+	return SteamFriends()->SetRichPresence(TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value));
+}
+
+
+bool USteamFriendsSubsystem::HasEquippedProfileItem(
+	const FSteamId SteamId, const ESteamCommunityProfileItemType ItemType
 ) {
-	const int32 Bitfield = ConvertSteamUserRestrictionsToBitfield(Restrictions);
-	return ConvertBitfieldToSteamUserRestrictions(Bitfield);
+	return SteamFriends()->BHasEquippedProfileItem(
+		SteamId.GetCSteamID(),
+		StaticCast<ECommunityProfileItemType>(ItemType)
+	);
+}
+
+
+FString USteamFriendsSubsystem::GetProfileItemPropertyString(
+	const FSteamId SteamId, const ESteamCommunityProfileItemType ItemType, const ESteamCommunityProfileItemProperty Prop
+) {
+	return SteamFriends()->GetProfileItemPropertyString(
+		SteamId.GetCSteamID(),
+		StaticCast<ECommunityProfileItemType>(ItemType),
+		StaticCast<ECommunityProfileItemProperty>(Prop)
+	);
+}
+
+
+int64 USteamFriendsSubsystem::GetProfileItemPropertyUint(
+	const FSteamId SteamId, const ESteamCommunityProfileItemType ItemType, const ESteamCommunityProfileItemProperty Prop
+) {
+	return SteamFriends()->GetProfileItemPropertyUint(
+		SteamId.GetCSteamID(),
+		ESteamCommunityProfileItemTypeHelper::ToSteamEnum(ItemType),
+		ESteamCommunityProfileItemPropertyHelper::ToSteamEnum(Prop)
+	);
 }

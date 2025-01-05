@@ -4,6 +4,10 @@
 #include "SteamOverlayToStoreFlag.generated.h"
 
 
+/**
+ * These values are passed as parameters to the store with ActivateGameOverlayToStore
+ * and modify the behavior when the page opens.
+ */
 UENUM(BlueprintType)
 enum class ESteamOverlayToStoreFlag : uint8
 {

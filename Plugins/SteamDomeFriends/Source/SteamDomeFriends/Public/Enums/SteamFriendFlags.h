@@ -24,9 +24,13 @@ enum class ESteamFriendFlags : uint8
 	All = 0xFF, 				 // Returns all friend flags.
 };
 
-/**
- * TODO: Probably these two functions can be improved using better techniques. For now it should do.
- */
 
-/** Transforms a set of Flags into a bitfield */
-STEAMDOMEFRIENDS_API int32 ConvertSteamFriendFlagsSetToBitfield(const TSet<ESteamFriendFlags>& Flags);
+namespace ESteamFriendFlagsHelper
+{
+	/**
+	 * TODO: Probably these two functions can be improved using better techniques. For now it should do.
+	 */
+
+	/** Transforms a set of Flags into a bitfield */
+	STEAMDOMEFRIENDS_API int32 ConvertSteamFriendFlagsSetToBitfield(const TSet<ESteamFriendFlags>& Flags);
+}
