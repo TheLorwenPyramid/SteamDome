@@ -2,11 +2,8 @@
 
 #pragma once
 
-#include <steam/isteamapps.h>
-
 #include "CoreMinimal.h"
-#include <steam/steam_api_common.h>
-
+#include <steam/isteamapps.h>
 #include "Helpers/SteamCallResult.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "GetFileDetailsAsyncAction.generated.h"
