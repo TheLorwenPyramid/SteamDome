@@ -8,7 +8,7 @@
 
 
 USTRUCT(BlueprintType)
-struct STEAMDOMECOMMON_API FSteamId
+struct STEAMDOMECORE_API FSteamId
 {
 	GENERATED_BODY()
 

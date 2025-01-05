@@ -6,7 +6,7 @@
 #include "DepotId.generated.h"
 
 USTRUCT(BlueprintType)
-struct STEAMDOMECOMMON_API FDepotId
+struct STEAMDOMECORE_API FDepotId
 {
 	GENERATED_BODY()
 
@@ -21,7 +21,7 @@ struct STEAMDOMECOMMON_API FDepotId
 
 
 UCLASS()
-class STEAMDOMECOMMON_API UDepotIdFunctionLibrary : public UBlueprintFunctionLibrary
+class STEAMDOMECORE_API UDepotIdFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

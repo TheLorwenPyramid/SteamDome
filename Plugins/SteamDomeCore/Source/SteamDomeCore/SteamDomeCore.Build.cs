@@ -1,10 +1,10 @@
-﻿// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
 
-public class SteamDomeFriends : ModuleRules
+public class SteamDomeCore : ModuleRules
 {
-	public SteamDomeFriends(ReadOnlyTargetRules Target) : base(Target)
+	public SteamDomeCore(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -26,7 +26,6 @@ public class SteamDomeFriends : ModuleRules
 			new string[]
 			{
 				"Core",
-				"SteamDomeCore",
 				// ... add other public dependencies that you statically link with here ...
 			}
 		);

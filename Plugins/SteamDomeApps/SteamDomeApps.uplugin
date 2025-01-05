@@ -23,7 +23,7 @@
 	],
 	"Plugins": [
 		{
-			"Name": "SteamDomeCommon",
+			"Name": "SteamDomeCore",
 			"Enabled": true
 		}
 	]

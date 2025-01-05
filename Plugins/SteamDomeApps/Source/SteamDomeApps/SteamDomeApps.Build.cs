@@ -26,7 +26,7 @@ public class SteamDomeApps : ModuleRules
 			new string[]
 			{
 				"Core",
-				"SteamDomeCommon"
+				"SteamDomeCore"
 				// ... add other public dependencies that you statically link with here ...
 			}
 		);

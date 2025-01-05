@@ -7,7 +7,7 @@
 #include "AppId.generated.h"
 
 USTRUCT(BlueprintType)
-struct STEAMDOMECOMMON_API FAppId
+struct STEAMDOMECORE_API FAppId
 {
 	GENERATED_BODY()
 

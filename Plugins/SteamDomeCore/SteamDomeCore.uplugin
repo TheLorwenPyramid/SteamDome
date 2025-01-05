@@ -1,34 +1,24 @@
-﻿{
+{
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "SteamDomeFriends",
+	"FriendlyName": "SteamDomeCore",
 	"Description": "",
 	"Category": "Other",
 	"CreatedBy": "Lorwen Pyramid",
 	"CreatedByURL": "",
 	"DocsURL": "",
 	"MarketplaceURL": "",
+	"SupportURL": "",
 	"CanContainContent": true,
 	"IsBetaVersion": true,
 	"IsExperimentalVersion": false,
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "SteamDomeFriends",
+			"Name": "SteamDomeCore",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
-		},
-		{
-			"Name": "SteamDomeFriendsTests",
-			"Type": "Editor",
-			"LoadingPhase": "Default"
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "SteamDomeCore",
-			"Enabled": true
 		}
 	]
 }

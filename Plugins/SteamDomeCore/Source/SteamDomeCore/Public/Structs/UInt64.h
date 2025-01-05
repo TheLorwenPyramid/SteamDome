@@ -6,7 +6,7 @@
 #include "UInt64.generated.h"
 
 USTRUCT(BlueprintType)
-struct STEAMDOMECOMMON_API FUInt64
+struct STEAMDOMECORE_API FUInt64
 {
 	GENERATED_BODY()
 

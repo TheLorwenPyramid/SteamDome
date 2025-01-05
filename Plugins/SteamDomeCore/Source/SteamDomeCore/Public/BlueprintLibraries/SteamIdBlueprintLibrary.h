@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class STEAMDOMECOMMON_API USteamIdBlueprintLibrary : public UBlueprintFunctionLibrary
+class STEAMDOMECORE_API USteamIdBlueprintLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 
