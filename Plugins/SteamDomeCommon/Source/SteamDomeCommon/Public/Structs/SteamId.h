@@ -17,11 +17,16 @@ protected:
 	CSteamID UnderlyingSteamID;
 
 	explicit FSteamId(const uint64 SteamId);
-	explicit FSteamId(const CSteamID& SteamId);
 
 public:
 
-	FSteamId() = default;
+	FSteamId()
+		: UnderlyingSteamID(k_steamIDNil)
+		{}
+
+	FSteamId(const CSteamID& SteamId)
+		: UnderlyingSteamID(SteamId)
+		{}
 
 	static FSteamId FromUniqueNetId(const FUniqueNetIdRef& UniqueNetId);
 	static FSteamId FromUniqueNetId(const FUniqueNetIdPtr& UniqueNetId);

@@ -18,9 +18,10 @@ public:
 
 	~FTempString()
 	{
-		if (Buffer)
+		if (Buffer != nullptr)
 		{
 			delete Buffer;
+			Buffer = nullptr;
 		}
 	}
 

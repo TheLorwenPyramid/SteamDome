@@ -16,7 +16,7 @@ struct FDLCData
 
 	/** Whether the DLC is currently available on the Steam store. Will be false if the DLC does not have a visible store page. */
 	UPROPERTY(BlueprintReadWrite, Category="SteamDome|SteamApps|DLC")
-	bool bAvailable;
+	bool bAvailable = false;
 
 	/** Returns the name of the DLC */
 	UPROPERTY(BlueprintReadWrite, Category="SteamDome|SteamApps|DLC")

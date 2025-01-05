@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <steam/steamtypes.h>
 #include "AppId.generated.h"
 
 USTRUCT(BlueprintType)
@@ -12,9 +13,11 @@ struct STEAMDOMECOMMON_API FAppId
 
 	uint32 AppId;
 	
-	FAppId() = default;
+	FAppId()
+		: AppId(k_uAppIdInvalid)
+		{}
 	
-	FAppId(const uint32 AppId)
+	FAppId(const AppId_t AppId)
 		: AppId(AppId)
 		{}
 };

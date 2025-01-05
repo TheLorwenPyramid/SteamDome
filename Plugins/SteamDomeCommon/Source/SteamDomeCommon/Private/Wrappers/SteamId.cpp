@@ -13,13 +13,6 @@ FSteamId::FSteamId(const uint64 SteamId)
 }
 
 
-FSteamId::FSteamId(const CSteamID& SteamId)
-	: UnderlyingSteamID(SteamId)
-{
-	
-}
-
-
 FSteamId FSteamId::FromUniqueNetId(const FUniqueNetIdRef& UniqueNetId)
 {
 	return FromString(UniqueNetId->ToString());
