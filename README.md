@@ -14,5 +14,9 @@ Additionally, the project includes UI elements and logic to test each method whe
 
 ## Progress
 ### SteamApps
-All (non-obsolete) methods are implemented, only Missing testing.
+All (non-obsolete) methods are implemented, only missing testing.
+
+### SteamFriends
+Work-in-progress...
+More than half of the methods are complete, also missing all async methods.
 
