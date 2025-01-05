@@ -24,7 +24,7 @@ enum class ESteamUserRestriction : uint8
 
 
 /** Converts a Bitfield in to a Set of ESteamUserRestriction */
-TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield);
+STEAMDOMEFRIENDS_API TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield);
 
 /** Converts a Set of ESteamUserRestriction in to a Bitfield */
-int32 ConvertSteamUserRestrictionsToBitfield(const TSet<ESteamUserRestriction>& Set);
+STEAMDOMEFRIENDS_API int32 ConvertSteamUserRestrictionsToBitfield(const TSet<ESteamUserRestriction>& Set);

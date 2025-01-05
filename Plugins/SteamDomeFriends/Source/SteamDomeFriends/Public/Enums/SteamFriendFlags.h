@@ -7,7 +7,7 @@
 /**
  * Flags for enumerating friends list, or quickly checking the relationship between users.
  */
-UENUM(BlueprintType, meta=(Bitflags, UseEnumValuesAsMaskValuesInEditor="true"))
+UENUM(BlueprintType)
 enum class ESteamFriendFlags : uint8
 {
 	None = 0x0, 				 // None.
@@ -24,15 +24,9 @@ enum class ESteamFriendFlags : uint8
 	All = 0xFF, 				 // Returns all friend flags.
 };
 
-ENUM_CLASS_FLAGS(ESteamFriendFlags);
-
-
 /**
- * TODO: Probably these two functions can be imrpoved using better techniques. For now it should do.
+ * TODO: Probably these two functions can be improved using better techniques. For now it should do.
  */
 
-/** Transforms an SteamFriendFlags into a bitfield */
-int32 ConvertSteamFriendFlagsToBitfield(const ESteamFriendFlags Flags);
-
 /** Transforms a set of Flags into a bitfield */
-int32 ConvertSteamFriendFlagsSetToBitfield(const TSet<ESteamFriendFlags>& Flags);
+STEAMDOMEFRIENDS_API int32 ConvertSteamFriendFlagsSetToBitfield(const TSet<ESteamFriendFlags>& Flags);

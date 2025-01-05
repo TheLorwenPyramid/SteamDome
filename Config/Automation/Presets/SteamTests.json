@@ -1,0 +1,13 @@
+{
+	"id": "SteamTests",
+	"name": "SteamTests",
+	"enabledTests": [
+		"SteamFriendFlags.ConvertSteamFriendFlagsToBitfield.Should return only None when bitfield is 0",
+		"SteamFriendFlags.ConvertSteamFriendFlagsToBitfield.Should return Steam's All when the All flag is enabled",
+		"SteamFriendFlags.ConvertSteamFriendFlagsToBitfield.Should return valid value when mixing multiple flags",
+		"SteamUserRestrictions.Convert Bitfield to Set<SteamUserRestriction>.Should convert correctly when two flags are enabled",
+		"SteamUserRestrictions.Convert Bitfield to Set<SteamUserRestriction>.Should return only None when bitfield is 0",
+		"SteamUserRestrictions.Convert Set<SteamUserRestriction> to bitfield.Should return 0 when Set has None",
+		"SteamUserRestrictions.Convert Set<SteamUserRestriction> to bitfield.Should return valid when flags are set"
+	]
+}

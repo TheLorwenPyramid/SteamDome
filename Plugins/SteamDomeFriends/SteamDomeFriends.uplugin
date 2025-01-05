@@ -18,6 +18,11 @@
 			"Name": "SteamDomeFriends",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "SteamDomeFriendsTests",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
 		}
 	]
 }

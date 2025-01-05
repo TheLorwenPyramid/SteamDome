@@ -14,6 +14,12 @@ FORCEINLINE void IncludeIfBitIsSet(
 TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield)
 {
 	TSet<ESteamUserRestriction> Restrictions;
+
+	if (Bitfield == 0)
+	{
+		Restrictions.Add(ESteamUserRestriction::None);
+		return Restrictions;
+	}
 	
 	// IncludeIfBitIsSet(ESteamUserRestriction::None, Bitfield, Restrictions); -- Does nothing
 	IncludeIfBitIsSet(ESteamUserRestriction::Unknown, Bitfield, Restrictions);
@@ -23,12 +29,6 @@ TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 B
 	IncludeIfBitIsSet(ESteamUserRestriction::Rating, Bitfield, Restrictions);
 	IncludeIfBitIsSet(ESteamUserRestriction::GameInvites, Bitfield, Restrictions);
 	IncludeIfBitIsSet(ESteamUserRestriction::Trading, Bitfield, Restrictions);
-
-	// If all bits are 0, add the None as the only value
-	if (Restrictions.Num() == 0)
-	{
-		Restrictions.Add(ESteamUserRestriction::None);
-	}
 
 	return Restrictions;
 }
