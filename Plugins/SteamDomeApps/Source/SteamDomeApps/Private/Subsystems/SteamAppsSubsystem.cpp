@@ -30,21 +30,8 @@ void USteamAppsSubsystem::GetDLCDataByIndex(
 	DLCData.Name = TempString.ToString();
 }
 
-/*
-bool USteamAppsSubsystem::GetDLCDataByIndex(const int32 DLCIndex, FAppId& AppId, bool& bAvailable, FString& Name, const int32 MaxExpectedLength)
-{
-	char* Buffer = new char[MaxExpectedLength];
 
-	const bool bSuccess = SteamApps()->BGetDLCDataByIndex(DLCIndex, &AppId.AppId, &bAvailable, Buffer, MaxExpectedLength);
-	Name = FString(UTF8_TO_TCHAR(Buffer));
-	
-	delete Buffer;
-
-	return bSuccess;
-}
-*/
-
-bool USteamAppsSubsystem::IsAppInstalled(const FAppId& AppId)
+bool USteamAppsSubsystem::IsAppInstalled(const FAppId AppId)
 {
 	return SteamApps()->BIsAppInstalled(AppId.AppId);
 }
@@ -56,7 +43,7 @@ bool USteamAppsSubsystem::IsCybercafe()
 }
 
 
-bool USteamAppsSubsystem::IsDLCInstalled(const FAppId& AppId)
+bool USteamAppsSubsystem::IsDLCInstalled(const FAppId AppId)
 {
 	return SteamApps()->BIsDlcInstalled(AppId.AppId);
 }
@@ -74,7 +61,7 @@ bool USteamAppsSubsystem::IsSubscribed()
 }
 
 
-bool USteamAppsSubsystem::IsSubscribedApp(const FAppId& AppId)
+bool USteamAppsSubsystem::IsSubscribedApp(const FAppId AppId)
 {
 	return SteamApps()->BIsSubscribedApp(AppId.AppId);
 }
@@ -116,7 +103,7 @@ int32 USteamAppsSubsystem::GetAppBuildId()
 }
 
 
-void USteamAppsSubsystem::GetAppInstallDir(const FAppId& AppId, FString& Folder, const int32 MaxExpectedLength)
+void USteamAppsSubsystem::GetAppInstallDir(const FAppId AppId, FString& Folder, const int32 MaxExpectedLength)
 {
 	const FTempString TempString(MaxExpectedLength);
 
@@ -133,7 +120,7 @@ FSteamId USteamAppsSubsystem::GetAppOwner()
 
 TArray<FString> USteamAppsSubsystem::GetAvailableGameLanguages()
 {
-	const FString LanguagesString = FString(SteamApps()->GetAvailableGameLanguages());
+	const FString LanguagesString = FString(UTF8_TO_TCHAR(SteamApps()->GetAvailableGameLanguages()));
 	
 	TArray<FString> Languages;
 	LanguagesString.ParseIntoArray(Languages, TEXT(","), true);
@@ -155,7 +142,7 @@ bool USteamAppsSubsystem::GetCurrentBetaName(FString& Name, const int32 MaxExpec
 
 FString USteamAppsSubsystem::GetCurrentGameLanguage()
 {
-	return FString(SteamApps()->GetCurrentGameLanguage());
+	return FString(UTF8_TO_TCHAR(SteamApps()->GetCurrentGameLanguage()));
 }
 
 
@@ -165,20 +152,20 @@ int32 USteamAppsSubsystem::GetDLCCount()
 }
 
 
-bool USteamAppsSubsystem::GetDLCDownloadProgress(const FAppId& AppId, FUInt64& BytesDownloaded, FUInt64& BytesTotal)
+bool USteamAppsSubsystem::GetDLCDownloadProgress(const FAppId AppId, FUInt64& BytesDownloaded, FUInt64& BytesTotal)
 {
 	return SteamApps()->GetDlcDownloadProgress(AppId.AppId, &BytesDownloaded.Value, &BytesTotal.Value);
 }
 
 
-FDateTime USteamAppsSubsystem::GetEarliestPurchaseUnixTime(const FAppId& AppId)
+FDateTime USteamAppsSubsystem::GetEarliestPurchaseUnixTime(const FAppId AppId)
 {
 	const uint32 UnixTime = SteamApps()->GetEarliestPurchaseUnixTime(AppId.AppId);
 	return FDateTime::FromUnixTimestamp(UnixTime);
 }
 
 
-TArray<FDepotId> USteamAppsSubsystem::GetInstalledDepots(const FAppId& AppId, const int64 MaxDepots)
+TArray<FDepotId> USteamAppsSubsystem::GetInstalledDepots(const FAppId AppId, const int64 MaxDepots)
 {
 	TArray<DepotId_t> Depots;
 	Depots.Reserve(MaxDepots);
@@ -216,11 +203,11 @@ FString USteamAppsSubsystem::GetLaunchCommandLine(const int32 MaxExpectedLength)
 
 FString USteamAppsSubsystem::GetLaunchQueryParam(const FString& Key)
 {
-	return FString(SteamApps()->GetLaunchQueryParam(TCHAR_TO_UTF8(*Key)));
+	return FString(UTF8_TO_TCHAR(SteamApps()->GetLaunchQueryParam(TCHAR_TO_UTF8(*Key))));
 }
 
 
-void USteamAppsSubsystem::InstallDLC(const FAppId& AppId)
+void USteamAppsSubsystem::InstallDLC(const FAppId AppId)
 {
 	SteamApps()->InstallDLC(AppId.AppId);
 }
@@ -232,7 +219,7 @@ bool USteamAppsSubsystem::MarkContentCorrupt(const bool bMissingFilesOnly)
 }
 
 
-void USteamAppsSubsystem::UninstallDLC(const FAppId& AppId)
+void USteamAppsSubsystem::UninstallDLC(const FAppId AppId)
 {
 	return SteamApps()->UninstallDLC(AppId.AppId);
 }

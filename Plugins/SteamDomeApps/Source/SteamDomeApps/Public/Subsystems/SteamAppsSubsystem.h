@@ -30,10 +30,10 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="SteamDome|SteamApps", DisplayName="On DLC Installed")
 	FDLCInstalledSignature OnDLCInstalled;
 
+	
 	/** Helper method to quickly get the SteamDomeApps Subsystem */
 	static USteamAppsSubsystem* Get(const UObject* WorldContextObject);
 
-	/** UNTESTED */
 	/**
 	 * Returns metadata for DLC by index, of range [0, GetDLCCount()]
 	 * 
@@ -45,7 +45,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", DisplayName="Get DLC Data By Index", meta=(AdvancedDisplay="MaxExpectedLength"))
 	static void GetDLCDataByIndex(const int32 DLCIndex, bool& bExists, FDLCData& DLCData, const int32 MaxExpectedLength = 128);
 
-	/** UNTESTED */
 	/**
 	* Checks if a specific app is installed.
 	* 
@@ -57,9 +56,8 @@ public:
 	* @return true if the specified App ID is installed; otherwise, false.
 	*/
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
-	static bool IsAppInstalled(const FAppId& AppId);
-	
-	/** UNTESTED */
+	static bool IsAppInstalled(const FAppId AppId);
+
 	/**
 	 * Deprecated - No longer used.
 	 * Checks whether the current App ID is for Cyber Cafes.
@@ -68,7 +66,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", meta=(DeprecatedFunction))
 	static bool IsCybercafe();
 
-	/** UNTESTED */
 	/**
 	 * Takes AppID of DLC and checks if the user owns the DLC & if the DLC is installed.
 	 *
@@ -78,9 +75,8 @@ public:
 	 * @return true if the user owns the DLC and it's currently installed, otherwise false.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", DisplayName="Is DLC Installed")
-	static bool IsDLCInstalled(const FAppId& AppId);
+	static bool IsDLCInstalled(const FAppId AppId);
 
-	/** UNTESTED */
 	/**
 	 * Checks if the license owned by the user provides low violence depots.
 	 * 
@@ -91,7 +87,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static bool IsLowViolence();
 
-	/** UNTESTED */
 	/**
 	 * Checks if the active user is subscribed to the current App ID.
 	 *
@@ -101,7 +96,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static bool IsSubscribed();
 
-	/** UNTESTED */
 	/**
 	 * Checks if the active user is subscribed to a specified AppId.
 	 * 
@@ -110,9 +104,8 @@ public:
 	 * @return true if the active user is subscribed to the specified App ID, otherwise false.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
-	static bool IsSubscribedApp(const FAppId& AppId);
+	static bool IsSubscribedApp(const FAppId AppId);
 
-	/** UNTESTED */
 	/**
 	 * Checks if the active user is accessing the current appID via a temporary Family Shared license owned by another user.
 	 * 
@@ -123,7 +116,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static bool IsSubscribedFromFamilySharing();
 
-	/** UNTESTED */
 	/**
 	 *  Checks if the user is subscribed to the current app through a free weekend.
 	 *  
@@ -134,7 +126,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static bool IsSubscribedFromFreeWeekend();
 
-	/** UNTESTED */
 	/**
 	 * Checks if the user is subscribed to the current appID through a timed trial.
 	 * If so, returns true and gives back the total time the timed trial is allowed to play,
@@ -147,7 +138,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static bool IsTimedTrial(int64& SecondsAllowed, int64& SecondsPlayed);
 
-	/** UNTESTED */
 	/**
 	 * Checks if the user has a VAC ban on their account.
 	 *
@@ -156,7 +146,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", DisplayName="Is VAC Banned")
 	static bool IsVACBanned();
 
-	/** UNTESTED */
 	/**
 	 * Gets the buildid of this app, may change at any time based on backend updates to the game.
 	 * 
@@ -165,7 +154,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static int32 GetAppBuildId();
 
-	/** UNTESTED */
 	/**
 	 * Gets the install folder for a specific AppID.
 	 *
@@ -176,9 +164,8 @@ public:
 	 * @param MaxExpectedLength Maximum length of the expected Name, used to reserve memory for the string.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", meta=(AdvancedDisplay="MaxExpectedLength"))
-	static void GetAppInstallDir(const FAppId& AppId, FString& Folder, const int32 MaxExpectedLength = 128);
+	static void GetAppInstallDir(const FAppId AppId, FString& Folder, const int32 MaxExpectedLength = 128);
 
-	/** UNTESTED */
 	/**
 	 * Gets the Steam ID of the true owner of the current app.
 	 * This is different from the current user if they are accessing this app via Family Sharing.
@@ -188,7 +175,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static FSteamId GetAppOwner();
 
-	/** UNTESTED */
 	/**
 	 * Gets a list of the languages the current app supports.
 	 * For the full list of languages that may be returned see "Localization and Languages" in Steamworks docs.
@@ -198,7 +184,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static TArray<FString> GetAvailableGameLanguages();
 
-	/** UNTESTED */
 	/**
 	 * Checks if the user is running from a beta branch, and gets the name of the branch if they are.
 	 * 
@@ -214,7 +199,6 @@ public:
 	// bool GetBetaInfo(int32 BetaIndex, uint32& Flags, uint32& BuildId, FString& BetaName, FString& Description);
 	// bool SetActiveBeta(const FString& BetaName);
 
-	/** UNTESTED */
 	/**
 	 * Gets the current language that the user has set.
 	 *
@@ -226,7 +210,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static FString GetCurrentGameLanguage();
 
-	/** UNTESTED */
 	/**
 	 * Gets the number of DLC pieces for the current app.
 	 *
@@ -239,7 +222,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", DisplayName="Get DLC Count")
 	static int32 GetDLCCount();
 
-	/** UNTESTED */
 	/**
 	 * Gets the download progress for optional DLC.
 	 * 
@@ -249,9 +231,8 @@ public:
 	 * @return true if the specified DLC exists and is currently downloading; otherwise, false.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", DisplayName="Get DLC Download Progress")
-	static bool GetDLCDownloadProgress(const FAppId& AppId, FUInt64& BytesDownloaded, FUInt64& BytesTotal);
+	static bool GetDLCDownloadProgress(const FAppId AppId, FUInt64& BytesDownloaded, FUInt64& BytesTotal);
 
-	/** UNTESTED */
 	/**
 	 * Gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).
 	 *
@@ -261,13 +242,11 @@ public:
 	 * @return The earliest purchase time in Unix epoch format (seconds since Jan 1st, 1970).
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
-	static FDateTime GetEarliestPurchaseUnixTime(const FAppId& AppId);
+	static FDateTime GetEarliestPurchaseUnixTime(const FAppId AppId);
 
-	/** UNTESTED */
 	// Implemented in an AsyncAction.
 	// uint64 GetFileDetails(const FString& Filename);
 
-	/** UNTESTED */
 	/**
 	 * Gets a list of all installed depots for a given App ID in mount order.
 	 *
@@ -276,9 +255,8 @@ public:
 	 * @return The array with all the depots ids installed.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
-	static TArray<FDepotId> GetInstalledDepots(const FAppId& AppId, const int64 MaxDepots);
+	static TArray<FDepotId> GetInstalledDepots(const FAppId AppId, const int64 MaxDepots);
 
-	/** UNTESTED */
 	/**
 	 * Gets the command line if the game was launched via Steam URL, e.g. steam://run/<appid>//<command line>/.
 	 * This method is preferable to launching with a command line via the operating system, which can be a security risk.
@@ -291,7 +269,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps", meta=(AdvancedDisplay="MaxExpectedLength"))
 	static FString GetLaunchCommandLine(int32 MaxExpectedLength = 128);
 
-	/** UNTESTED */
 	/**
 	 * Gets the associated launch parameter if the game is run via steam://run/<appid>/?param1=value1;param2=value2;param3=value3 etc.
 	 *
@@ -305,19 +282,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
 	static FString GetLaunchQueryParam(const FString& Key);
 
-	/** UNTESTED */
 	// Install control for optional DLC
 
-	/** UNTESTED */
 	/**
 	 * Allows you to install an optional DLC.
 	 * 
 	 * @param AppId The DLC you want to install.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
-	static void InstallDLC(const FAppId& AppId);
+	static void InstallDLC(const FAppId AppId);
 
-	/** UNTESTED */
 	/**
 	 * Allows you to force verify game content on next launch.
 	 *
@@ -330,12 +304,11 @@ public:
 	// Obsolete
 	// void RequestAllProofOfPurchaseKeys();
 
-	/** UNTESTED */
 	/**
 	 * Allows you to uninstall an optional DLC.
 	 * 
 	 * @param AppId The DLC you want to uninstall.
 	 */
 	UFUNCTION(BlueprintCallable, Category="SteamDome|SteamApps")
-	static void UninstallDLC(const FAppId& AppId);
+	static void UninstallDLC(const FAppId AppId);
 };
