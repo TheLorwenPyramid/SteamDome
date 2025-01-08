@@ -6,7 +6,7 @@
 #include <steam/isteamapps.h>
 #include "Structs/AppId.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "SteamAppsSubsystem.generated.h"
+#include "SteamDomeAppsSubsystem.generated.h"
 
 struct FUInt64;
 struct FDepotId;
@@ -16,13 +16,13 @@ struct FDLCData;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDLCInstalledSignature, const FAppId, AppId);
 
 UCLASS()
-class STEAMDOMEAPPS_API USteamAppsSubsystem : public UGameInstanceSubsystem
+class STEAMDOMEAPPS_API USteamDomeAppsSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 	
 protected:
 
-	STEAM_CALLBACK(USteamAppsSubsystem, OnDLCInstalledCallback, DlcInstalled_t);
+	STEAM_CALLBACK(USteamDomeAppsSubsystem, OnDLCInstalledCallback, DlcInstalled_t);
 
 public:
 
@@ -32,7 +32,7 @@ public:
 
 	
 	/** Helper method to quickly get the SteamDomeApps Subsystem */
-	static USteamAppsSubsystem* Get(const UObject* WorldContextObject);
+	static USteamDomeAppsSubsystem* Get(const UObject* WorldContextObject);
 
 	/**
 	 * Returns metadata for DLC by index, of range [0, GetDLCCount()]

@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Subsystems/SteamAppsSubsystem.h"
+#include "Subsystems/SteamDomeAppsSubsystem.h"
 
 #include <steam/isteamapps.h>
 #include <steam/isteamutils.h>
@@ -15,13 +15,13 @@
 #include "Kismet/GameplayStatics.h"
 
 
-USteamAppsSubsystem* USteamAppsSubsystem::Get(const UObject* WorldContextObject)
+USteamDomeAppsSubsystem* USteamDomeAppsSubsystem::Get(const UObject* WorldContextObject)
 {
-	return UGameplayStatics::GetGameInstance(WorldContextObject)->GetSubsystem<USteamAppsSubsystem>();
+	return UGameplayStatics::GetGameInstance(WorldContextObject)->GetSubsystem<USteamDomeAppsSubsystem>();
 }
 
 
-void USteamAppsSubsystem::GetDLCDataByIndex(
+void USteamDomeAppsSubsystem::GetDLCDataByIndex(
 	const int32 DLCIndex, bool& bExists, FDLCData& DLCData, const int32 MaxExpectedLength
 ) {
 	const FTempString TempString(MaxExpectedLength);
@@ -31,55 +31,55 @@ void USteamAppsSubsystem::GetDLCDataByIndex(
 }
 
 
-bool USteamAppsSubsystem::IsAppInstalled(const FAppId AppId)
+bool USteamDomeAppsSubsystem::IsAppInstalled(const FAppId AppId)
 {
 	return SteamApps()->BIsAppInstalled(AppId.AppId);
 }
 
 
-bool USteamAppsSubsystem::IsCybercafe()
+bool USteamDomeAppsSubsystem::IsCybercafe()
 {
 	return SteamApps()->BIsCybercafe();
 }
 
 
-bool USteamAppsSubsystem::IsDLCInstalled(const FAppId AppId)
+bool USteamDomeAppsSubsystem::IsDLCInstalled(const FAppId AppId)
 {
 	return SteamApps()->BIsDlcInstalled(AppId.AppId);
 }
 
 
-bool USteamAppsSubsystem::IsLowViolence()
+bool USteamDomeAppsSubsystem::IsLowViolence()
 {
 	return SteamApps()->BIsLowViolence();
 }
 
 
-bool USteamAppsSubsystem::IsSubscribed()
+bool USteamDomeAppsSubsystem::IsSubscribed()
 {
 	return SteamApps()->BIsSubscribed();
 }
 
 
-bool USteamAppsSubsystem::IsSubscribedApp(const FAppId AppId)
+bool USteamDomeAppsSubsystem::IsSubscribedApp(const FAppId AppId)
 {
 	return SteamApps()->BIsSubscribedApp(AppId.AppId);
 }
 
 
-bool USteamAppsSubsystem::IsSubscribedFromFamilySharing()
+bool USteamDomeAppsSubsystem::IsSubscribedFromFamilySharing()
 {
 	return SteamApps()->BIsSubscribedFromFamilySharing();
 }
 
 
-bool USteamAppsSubsystem::IsSubscribedFromFreeWeekend()
+bool USteamDomeAppsSubsystem::IsSubscribedFromFreeWeekend()
 {
 	return SteamApps()->BIsSubscribedFromFreeWeekend();
 }
 
 
-bool USteamAppsSubsystem::IsTimedTrial(int64& SecondsAllowed, int64& SecondsPlayed)
+bool USteamDomeAppsSubsystem::IsTimedTrial(int64& SecondsAllowed, int64& SecondsPlayed)
 {
 	uint32 SecondsAllowedOut, SecondsPlayedOut;
 	const bool bSuccess = SteamApps()->BIsTimedTrial(&SecondsAllowedOut, &SecondsPlayedOut);
@@ -91,19 +91,19 @@ bool USteamAppsSubsystem::IsTimedTrial(int64& SecondsAllowed, int64& SecondsPlay
 }
 
 
-bool USteamAppsSubsystem::IsVACBanned()
+bool USteamDomeAppsSubsystem::IsVACBanned()
 {
 	return SteamApps()->BIsVACBanned();
 }
 
 
-int32 USteamAppsSubsystem::GetAppBuildId()
+int32 USteamDomeAppsSubsystem::GetAppBuildId()
 {
 	return SteamApps()->GetAppBuildId();
 }
 
 
-void USteamAppsSubsystem::GetAppInstallDir(const FAppId AppId, FString& Folder, const int32 MaxExpectedLength)
+void USteamDomeAppsSubsystem::GetAppInstallDir(const FAppId AppId, FString& Folder, const int32 MaxExpectedLength)
 {
 	const FTempString TempString(MaxExpectedLength);
 
@@ -112,13 +112,13 @@ void USteamAppsSubsystem::GetAppInstallDir(const FAppId AppId, FString& Folder, 
 }
 
 
-FSteamId USteamAppsSubsystem::GetAppOwner()
+FSteamId USteamDomeAppsSubsystem::GetAppOwner()
 {
 	return FSteamId::FromCSteamID(SteamApps()->GetAppOwner());
 }
 
 
-TArray<FString> USteamAppsSubsystem::GetAvailableGameLanguages()
+TArray<FString> USteamDomeAppsSubsystem::GetAvailableGameLanguages()
 {
 	const FString LanguagesString = FString(UTF8_TO_TCHAR(SteamApps()->GetAvailableGameLanguages()));
 	
@@ -129,7 +129,7 @@ TArray<FString> USteamAppsSubsystem::GetAvailableGameLanguages()
 }
 
 
-bool USteamAppsSubsystem::GetCurrentBetaName(FString& Name, const int32 MaxExpectedLength)
+bool USteamDomeAppsSubsystem::GetCurrentBetaName(FString& Name, const int32 MaxExpectedLength)
 {
 	const FTempString TempString(MaxExpectedLength);
 
@@ -140,32 +140,32 @@ bool USteamAppsSubsystem::GetCurrentBetaName(FString& Name, const int32 MaxExpec
 }
 
 
-FString USteamAppsSubsystem::GetCurrentGameLanguage()
+FString USteamDomeAppsSubsystem::GetCurrentGameLanguage()
 {
 	return FString(UTF8_TO_TCHAR(SteamApps()->GetCurrentGameLanguage()));
 }
 
 
-int32 USteamAppsSubsystem::GetDLCCount()
+int32 USteamDomeAppsSubsystem::GetDLCCount()
 {
 	return SteamApps()->GetDLCCount();
 }
 
 
-bool USteamAppsSubsystem::GetDLCDownloadProgress(const FAppId AppId, FUInt64& BytesDownloaded, FUInt64& BytesTotal)
+bool USteamDomeAppsSubsystem::GetDLCDownloadProgress(const FAppId AppId, FUInt64& BytesDownloaded, FUInt64& BytesTotal)
 {
 	return SteamApps()->GetDlcDownloadProgress(AppId.AppId, &BytesDownloaded.Value, &BytesTotal.Value);
 }
 
 
-FDateTime USteamAppsSubsystem::GetEarliestPurchaseUnixTime(const FAppId AppId)
+FDateTime USteamDomeAppsSubsystem::GetEarliestPurchaseUnixTime(const FAppId AppId)
 {
 	const uint32 UnixTime = SteamApps()->GetEarliestPurchaseUnixTime(AppId.AppId);
 	return FDateTime::FromUnixTimestamp(UnixTime);
 }
 
 
-TArray<FDepotId> USteamAppsSubsystem::GetInstalledDepots(const FAppId AppId, const int64 MaxDepots)
+TArray<FDepotId> USteamDomeAppsSubsystem::GetInstalledDepots(const FAppId AppId, const int64 MaxDepots)
 {
 	TArray<DepotId_t> Depots;
 	Depots.Reserve(MaxDepots);
@@ -192,7 +192,7 @@ void USteamAppsSubsystem::GetFileDetails(const FString& Filename)
 */
 
 
-FString USteamAppsSubsystem::GetLaunchCommandLine(const int32 MaxExpectedLength)
+FString USteamDomeAppsSubsystem::GetLaunchCommandLine(const int32 MaxExpectedLength)
 {
 	const FTempString TempString(MaxExpectedLength);
 	const int32 Bytes = SteamApps()->GetLaunchCommandLine(TempString.Start(), MaxExpectedLength);
@@ -201,31 +201,31 @@ FString USteamAppsSubsystem::GetLaunchCommandLine(const int32 MaxExpectedLength)
 }
 
 
-FString USteamAppsSubsystem::GetLaunchQueryParam(const FString& Key)
+FString USteamDomeAppsSubsystem::GetLaunchQueryParam(const FString& Key)
 {
 	return FString(UTF8_TO_TCHAR(SteamApps()->GetLaunchQueryParam(TCHAR_TO_UTF8(*Key))));
 }
 
 
-void USteamAppsSubsystem::InstallDLC(const FAppId AppId)
+void USteamDomeAppsSubsystem::InstallDLC(const FAppId AppId)
 {
 	SteamApps()->InstallDLC(AppId.AppId);
 }
 
 
-bool USteamAppsSubsystem::MarkContentCorrupt(const bool bMissingFilesOnly)
+bool USteamDomeAppsSubsystem::MarkContentCorrupt(const bool bMissingFilesOnly)
 {
 	return SteamApps()->MarkContentCorrupt(bMissingFilesOnly);
 }
 
 
-void USteamAppsSubsystem::UninstallDLC(const FAppId AppId)
+void USteamDomeAppsSubsystem::UninstallDLC(const FAppId AppId)
 {
 	return SteamApps()->UninstallDLC(AppId.AppId);
 }
 
 
-void USteamAppsSubsystem::OnDLCInstalledCallback(DlcInstalled_t* pParam)
+void USteamDomeAppsSubsystem::OnDLCInstalledCallback(DlcInstalled_t* pParam)
 {
 	if (pParam)
 	{
