@@ -16,24 +16,55 @@
 #include "Enums/SteamUserRestrictions.h"
 #include "Structs/FriendsGroupId.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "SteamFriendsSubsystem.generated.h"
+#include "SteamDomeFriendsSubsystem.generated.h"
 
 
 struct FFriendGameInfo;
 struct FChatMessage;
 struct FClanActivityCounts;
+
+
+DECLARE_MULTICAST_DELEGATE_TwoParams(
+	FOnPersonaStateChangeSignature,
+	const FSteamId /* SteamId */,
+	const int32 /* ChangeFlags */
+);
+
+
+DECLARE_MULTICAST_DELEGATE_FourParams(
+	FOnAvatarImageLoadedSignature,
+	const FSteamId /* SteamId */,
+	const int32 /* PictureIndex */,
+	const int32 /* PictureWidth */,
+	const int32 /* PictureHeight */
+);
+
 /**
  * 
  */
 UCLASS()
-class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsystem
+class STEAMDOMEFRIENDS_API USteamDomeFriendsSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
+public:
+
+	/**
+	 * Called when a large avatar is loaded if you have tried requesting it when it was unavailable.
+	 * 
+	 * Not exposed directly to blueprints.
+	 * Functionality to execute the Avatar loading in Blueprints in done via the GetUserAvatar async task.
+	 */
+	FOnPersonaStateChangeSignature OnPersonaStateChange;
+
+	FOnAvatarImageLoadedSignature OnAvatarImageLoaded;
+
+	static USteamDomeFriendsSubsystem* Get(const UObject* WorldContextObject);
+	
 	/**
 	 * Activates the Steam Overlay to a specific dialog.
 	 *
-	 * This is equivalent to calling ActivateGameOverlayToUser with steamID set to ISteamUser::GetSteamID.
+	 * This is equivalent to calling ActivateGameOverlayToUser with SteamId set to ISteamUser::GetSteamID.
 	 * 
 	 * @param OverlayDialog The dialog to open
 	 */
@@ -1026,4 +1057,8 @@ class STEAMDOMEFRIENDS_API USteamFriendsSubsystem : public UGameInstanceSubsyste
 		const ESteamCommunityProfileItemType ItemType,
 		const ESteamCommunityProfileItemProperty Prop
 	);
+
+
+	STEAM_CALLBACK(ThisClass, OnAvatarImageLoadedCallback, AvatarImageLoaded_t);
+	STEAM_CALLBACK(ThisClass, OnPersonaStateChangeCallback, PersonaStateChange_t);
 };
