@@ -16,9 +16,8 @@ protected:
 	
 	CSteamID UnderlyingSteamID;
 
-	explicit FSteamId(const uint64 SteamId);
-
 public:
+
 
 	FSteamId()
 		: UnderlyingSteamID(k_steamIDNil)
@@ -27,6 +26,15 @@ public:
 	FSteamId(const CSteamID& SteamId)
 		: UnderlyingSteamID(SteamId)
 		{}
+	
+	FSteamId(const uint64 SteamId)
+		: UnderlyingSteamID(CSteamID(SteamId))
+		{}
+
+	bool operator==(const FSteamId& Other) const
+	{
+		return UnderlyingSteamID == Other.UnderlyingSteamID;
+	}
 
 	static FSteamId FromUniqueNetId(const FUniqueNetIdRef& UniqueNetId);
 	static FSteamId FromUniqueNetId(const FUniqueNetIdPtr& UniqueNetId);

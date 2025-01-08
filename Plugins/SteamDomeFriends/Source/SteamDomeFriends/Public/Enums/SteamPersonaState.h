@@ -19,3 +19,18 @@ enum class ESteamPersonaState : uint8
 	LookingToPlay = 6, 		// Online, wanting to play.
 	Max = 7 UMETA(Hidden),	// The total number of states. Only used for looping and validation.
 };
+
+
+namespace SteamPersonaState
+{
+	inline EPersonaState STEAMDOMEFRIENDS_API ToSteamEnum(const ESteamPersonaState SteamFriendRelationship)
+	{
+		return StaticCast<EPersonaState>(SteamFriendRelationship);
+	}
+
+	inline ESteamPersonaState STEAMDOMEFRIENDS_API FromSteamEnum(const EPersonaState SteamFriendRelationship)
+	{
+		return StaticCast<ESteamPersonaState>(SteamFriendRelationship);
+	}
+}
+

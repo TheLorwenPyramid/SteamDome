@@ -11,7 +11,7 @@ struct STEAMDOMECORE_API FUInt64
 	GENERATED_BODY()
 
 	uint64 Value;
-	
+
 	FUInt64() = default;
 	
 	FUInt64(const uint64 Value)

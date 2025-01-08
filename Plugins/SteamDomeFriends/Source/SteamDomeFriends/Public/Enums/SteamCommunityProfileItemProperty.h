@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "SteamCommunityProfileItemType.h"
+#include <steam/isteamfriends.h>
 #include "SteamCommunityProfileItemProperty.generated.h"
 
 
@@ -26,11 +26,16 @@ enum class ESteamCommunityProfileItemProperty : uint8
 };
 
 
-namespace ESteamCommunityProfileItemPropertyHelper
+namespace SteamCommunityProfileItemProperty
 {
-	inline ECommunityProfileItemProperty ToSteamEnum(const ESteamCommunityProfileItemProperty OurEnum)
+	inline ECommunityProfileItemProperty ToSteamEnum(const ESteamCommunityProfileItemProperty SteamCommunityProfileItemProperty)
 	{
-		return StaticCast<ECommunityProfileItemProperty>(OurEnum);
+		return StaticCast<ECommunityProfileItemProperty>(SteamCommunityProfileItemProperty);
+	}
+
+	inline ESteamCommunityProfileItemProperty FromSteamEnum(const ECommunityProfileItemProperty CommunityProfileItemProperty)
+	{
+		return StaticCast<ESteamCommunityProfileItemProperty>(CommunityProfileItemProperty);
 	}
 };
 

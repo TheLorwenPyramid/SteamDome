@@ -25,7 +25,7 @@ enum class ESteamFriendFlags : uint8
 };
 
 
-namespace ESteamFriendFlagsHelper
+namespace SteamFriendFlags
 {
 	/**
 	 * TODO: Probably these two functions can be improved using better techniques. For now it should do.

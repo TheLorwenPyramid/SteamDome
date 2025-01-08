@@ -2,9 +2,10 @@
 
 #include <steam/steam_api_common.h>
 
+
 #define STEAMDOME_CALLRESULT(NAME, T) \
-	using NAME = FSteamCallResult<T>; \
-	using NAME##Delegate = FSteamCallResult<T>::FOnReadySignature;
+	using NAME = TSteamCallResult<T>; \
+	using NAME##Delegate = TSteamCallResult<T>::FCallResultDelegate;
 
 
 /**
@@ -36,27 +37,38 @@
  * @tparam TEvent Steam type to be used.
  */
 template<typename TEvent>
-struct FSteamCallResult
+struct TSteamCallResult
 {
 protected:
 
-	CCallResult<FSteamCallResult, TEvent> SteamCallback;
+	CCallResult<TSteamCallResult, TEvent> SteamCallback;
 
 public:
 
-	DECLARE_DELEGATE_TwoParams(FOnReadySignature, TEvent* /* SteamType */, bool /* bIOFailure */);
+	using FCallResultDelegate = TDelegate<void(TEvent* /* SteamType */, bool /* bIOFailure */)>;
 
-	TOptional<FOnReadySignature> OnReady;
+	TOptional<FCallResultDelegate> OnReady;
 
-	void Init(FOnReadySignature OnReadyCallback)
+
+	/**
+	 * Initialize Unreal's delegate with your own callback that indicates the method/function to be called.
+	 *
+	 * Only initialized the value once per instance.
+	 */
+	void Init(FCallResultDelegate OnReadyCallback)
 	{
 		OnReady = TOptional{ OnReadyCallback };
 	}
 
+
+	/**
+	 * Bind the Steam CallResult to the delegate given in the Init method.
+	 */
 	void Bind(const SteamAPICall_t SteamAPICall)
 	{
 		checkf(OnReady.IsSet(), TEXT("Missing call to FSteamCallResult::Init before FSteamCallResult::Bind execution"));
-		SteamCallback.Set(SteamAPICall, this, &FSteamCallResult::OnCompleted);
+		
+		SteamCallback.Set(SteamAPICall, this, &TSteamCallResult::OnCompleted);
 	}
 
 protected:

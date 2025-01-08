@@ -4,7 +4,7 @@
 #include "Enums/OverlayDialog.h"
 
 
-const char* EOverlayDialogHelper::OverlayDialogSelfToCharPtr(const EOverlayDialogSelf OverlayDialog)
+const char* OverlayDialog::OverlayDialogSelfToCharPtr(const EOverlayDialogSelf OverlayDialog)
 {
 	switch (OverlayDialog)
 	{
@@ -29,7 +29,7 @@ const char* EOverlayDialogHelper::OverlayDialogSelfToCharPtr(const EOverlayDialo
 }
 
 
-const char* EOverlayDialogHelper::OverlayDialogUserToCharPtr(const EOverlayDialogUser OverlayDialog)
+const char* OverlayDialog::OverlayDialogUserToCharPtr(const EOverlayDialogUser OverlayDialog)
 {
 	switch (OverlayDialog)
 	{

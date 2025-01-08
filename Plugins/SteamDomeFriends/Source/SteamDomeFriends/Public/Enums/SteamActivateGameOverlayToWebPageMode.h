@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include <steam/isteamfriends.h>
 #include "SteamActivateGameOverlayToWebPageMode.generated.h"
 
 
@@ -22,3 +23,17 @@ enum class ESteamActivateGameOverlayToWebPageMode : uint8
 	 */
 	Modal = 1,
 };
+
+
+namespace SteamActivateGameOverlayToWebPageMode
+{
+	inline EActivateGameOverlayToWebPageMode STEAMDOMEFRIENDS_API ToSteamEnum(const ESteamActivateGameOverlayToWebPageMode SteamActivateGameOverlayToWebPageMode)
+	{
+		return StaticCast<EActivateGameOverlayToWebPageMode>(SteamActivateGameOverlayToWebPageMode);
+	}
+
+	inline ESteamActivateGameOverlayToWebPageMode STEAMDOMEFRIENDS_API FromSteamEnum(const EActivateGameOverlayToWebPageMode ActivateGameOverlayToWebPageMode)
+	{
+		return StaticCast<ESteamActivateGameOverlayToWebPageMode>(ActivateGameOverlayToWebPageMode);
+	}
+}

@@ -23,7 +23,7 @@ enum class ESteamUserRestriction : uint8
 };
 
 
-namespace ESteamUserRestrictionHelper
+namespace SteamUserRestriction
 {
 	/** Converts a Bitfield in to a Set of ESteamUserRestriction */
 	STEAMDOMEFRIENDS_API TSet<ESteamUserRestriction> ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield);

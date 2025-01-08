@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include <steam/steamclientpublic.h>
 #include "SteamChatEntryType.generated.h"
 
 
@@ -26,3 +27,17 @@ enum class ESteamChatEntryType : uint8
 	HistoricalChat = 11, // A chat message from user's chat history or offline message.
 	LinkBlocked = 14, // A link was removed by the chat filter.
 };
+
+
+namespace SteamChatEntryType
+{
+	inline EChatEntryType STEAMDOMEFRIENDS_API ToSteamEnum(const ESteamChatEntryType SteamChatEntryType)
+	{
+		return StaticCast<EChatEntryType>(SteamChatEntryType);
+	}
+
+	inline ESteamChatEntryType STEAMDOMEFRIENDS_API FromSteamEnum(const EChatEntryType SteamChatEntryType)
+	{
+		return StaticCast<ESteamChatEntryType>(SteamChatEntryType);
+	}
+}

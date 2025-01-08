@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "OverlayDialog.generated.h"
 
+
 /**
  * Replaces Steam's string values with enums.
  * 
@@ -19,6 +20,7 @@ enum class EOverlayDialogSelf : uint8
 	Stats = 5,
 	Achievements = 6,
 };
+
 
 /**
  * Replaces Steam's string values with enums.
@@ -40,7 +42,7 @@ enum class EOverlayDialogUser : uint8
 };
 
 
-namespace EOverlayDialogHelper
+namespace OverlayDialog
 {
 	STEAMDOMEFRIENDS_API const char* OverlayDialogSelfToCharPtr(const EOverlayDialogSelf OverlayDialog);
 	

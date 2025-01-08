@@ -4,13 +4,13 @@
 #include "BlueprintLibraries/SteamIdBlueprintLibrary.h"
 
 
-FSteamId USteamIdBlueprintLibrary::CreateSteamIdFromString(const FString& SteamIdString)
+FSteamId USteamIdBlueprintLibrary::FromString(const FString& SteamIdString)
 {
 	return FSteamId::FromString(SteamIdString);
 }
 
 
-FString USteamIdBlueprintLibrary::ConvertSteamIdToString(const FSteamId& SteamId)
+FString USteamIdBlueprintLibrary::ToString(FSteamId SteamId)
 {
 	return SteamId.ToString();
 }

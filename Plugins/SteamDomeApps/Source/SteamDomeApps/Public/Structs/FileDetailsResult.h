@@ -19,12 +19,6 @@ struct STEAMDOMEAPPS_API FFileDetailsResult
 {
 	GENERATED_BODY()
 
-	FFileDetailsResult()
-		: Result(ESteamResult::None), FileSize(0), FileSHA(""), Flags(0)
-	{}
-
-	FFileDetailsResult(const FileDetailsResult_t& Details);
-
 	/**
 	 * Was the call successful? k_EResultOK if it was;
 	 * otherwise, k_EResultFileNotFound if the file was not found.
@@ -44,4 +38,10 @@ struct STEAMDOMEAPPS_API FFileDetailsResult
 	/** Undocumented */
 	UPROPERTY(BlueprintReadOnly)
 	int64 Flags;
+
+	FFileDetailsResult()
+		: Result(ESteamResult::None), FileSize(0), FileSHA(""), Flags(0)
+	{}
+
+	FFileDetailsResult(const FileDetailsResult_t& Details);
 };

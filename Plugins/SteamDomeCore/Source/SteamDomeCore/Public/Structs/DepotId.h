@@ -3,32 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <steam/steamtypes.h>
 #include "DepotId.generated.h"
 
+
+/**
+ * Represents an DepotId_t (uint32) in Blueprints.
+ */
 USTRUCT(BlueprintType)
 struct STEAMDOMECORE_API FDepotId
 {
 	GENERATED_BODY()
 
-	uint32 DepotId;
+	uint32 DepotId = k_uDepotIdInvalid;
 	
 	FDepotId() = default;
 	
 	FDepotId(const uint32 DepotId)
 		: DepotId(DepotId)
 		{}
-};
-
-
-UCLASS()
-class STEAMDOMECORE_API UDepotIdFunctionLibrary : public UBlueprintFunctionLibrary
-{
-	GENERATED_BODY()
-
-public:
-	UFUNCTION(BlueprintPure, Category="SteamDome|Common", meta=(DisplayName="Convert To String", CompactNodeTitle="->", BlueprintAutocast))
-	static FString DepotIdToString(const FDepotId& DepotId)
-	{
-		return FString::Printf(TEXT("%d"), DepotId.DepotId);
-	}
 };

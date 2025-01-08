@@ -11,7 +11,7 @@ FORCEINLINE void IncludeIfBitIsSet(
 	}
 }
 
-TSet<ESteamUserRestriction> ESteamUserRestrictionHelper::ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield)
+TSet<ESteamUserRestriction> SteamUserRestriction::ConvertBitfieldToSteamUserRestrictions(const int32 Bitfield)
 {
 	TSet<ESteamUserRestriction> Restrictions;
 
@@ -34,7 +34,7 @@ TSet<ESteamUserRestriction> ESteamUserRestrictionHelper::ConvertBitfieldToSteamU
 }
 
 
-int32 ESteamUserRestrictionHelper::ConvertSteamUserRestrictionsToBitfield(const TSet<ESteamUserRestriction>& Set)
+int32 SteamUserRestriction::ConvertSteamUserRestrictionsToBitfield(const TSet<ESteamUserRestriction>& Set)
 {
 	int32 Bitflag = 0;
 	

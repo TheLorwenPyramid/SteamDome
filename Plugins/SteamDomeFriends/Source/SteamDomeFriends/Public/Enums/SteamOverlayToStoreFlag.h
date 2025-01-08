@@ -15,3 +15,17 @@ enum class ESteamOverlayToStoreFlag : uint8
 	// AddToCart = 1, // Deprecated, now works the same as k_EOverlayToStoreFlag_AddToCartAndShow.
 	AddToCharAndShow = 2, // Add the specified app ID to the users cart and show the store page.
 };
+
+
+namespace SteamOverlayToStoreFlag
+{
+	inline EOverlayToStoreFlag STEAMDOMEFRIENDS_API ToSteamEnum(const ESteamOverlayToStoreFlag SteamFriendRelationship)
+	{
+		return StaticCast<EOverlayToStoreFlag>(SteamFriendRelationship);
+	}
+
+	inline ESteamOverlayToStoreFlag STEAMDOMEFRIENDS_API FromSteamEnum(const EOverlayToStoreFlag SteamFriendRelationship)
+	{
+		return StaticCast<ESteamOverlayToStoreFlag>(SteamFriendRelationship);
+	}
+}

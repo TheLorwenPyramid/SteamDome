@@ -18,8 +18,8 @@ class STEAMDOMECORE_API USteamIdBlueprintLibrary : public UBlueprintFunctionLibr
 public:
 
 	UFUNCTION(BlueprintCallable, DisplayName="Create SteamId From String")
-	static FSteamId CreateSteamIdFromString(const FString& SteamIdString);
+	static FSteamId FromString(const FString& SteamIdString);
 
-	UFUNCTION(BlueprintPure, DisplayName="Convert SteamId To String", meta=(BlueprintAutocast))
-	static FString ConvertSteamIdToString(const FSteamId& SteamId);
+	UFUNCTION(BlueprintPure, Category="SteamDome|Common", meta=(DisplayName="Convert To String", CompactNodeTitle="->", BlueprintAutocast))
+	static FString ToString(FSteamId SteamId);
 };

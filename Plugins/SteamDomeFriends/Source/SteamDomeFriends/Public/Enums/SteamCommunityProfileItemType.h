@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "steam/isteamfriends.h"
+#include <steam/isteamfriends.h>
 #include "SteamCommunityProfileItemType.generated.h"
 
 
@@ -16,7 +16,7 @@ enum class ESteamCommunityProfileItemType : uint8
 };
 
 
-namespace ESteamCommunityProfileItemTypeHelper
+namespace SteamCommunityProfileItemType
 {
 	inline ECommunityProfileItemType ToSteamEnum(const ESteamCommunityProfileItemType OurEnum)
 	{

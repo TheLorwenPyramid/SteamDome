@@ -6,6 +6,10 @@
 #include <steam/steamtypes.h>
 #include "AppId.generated.h"
 
+
+/**
+ * Represents an AppId_t (uint32) in Blueprints.
+ */
 USTRUCT(BlueprintType)
 struct STEAMDOMECORE_API FAppId
 {

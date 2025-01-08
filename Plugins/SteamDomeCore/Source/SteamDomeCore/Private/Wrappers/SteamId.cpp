@@ -6,13 +6,6 @@
 #include "Kismet/KismetStringLibrary.h"
 
 
-FSteamId::FSteamId(const uint64 SteamId)
-	: UnderlyingSteamID(CSteamID(SteamId))
-{
-	
-}
-
-
 FSteamId FSteamId::FromUniqueNetId(const FUniqueNetIdRef& UniqueNetId)
 {
 	return FromString(UniqueNetId->ToString());
