@@ -43,10 +43,10 @@ class STEAMDOMEFRIENDS_API UDownloadClanActivityCountsAsyncAction : public UBlue
 	STEAMDOME_CALLRESULT(FOnDownloadClanActivityCompleted, DownloadClanActivityCountsResult_t)
 	FOnDownloadClanActivityCompleted OnDownloadClanActivityCompleted;
 
+public:
+	
 	UPROPERTY(BlueprintAssignable)
 	FDownloadClanActivityCountsCompleted OnCompleted;
-
-public:
 	
 	/**
 	 * Refresh the Steam Group activity data or get the data from groups other than one that the current user is a member.
