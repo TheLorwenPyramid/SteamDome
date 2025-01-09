@@ -49,6 +49,12 @@ CSteamID& FSteamId::GetCSteamID()
 }
 
 
+uint64 FSteamId::ToUInt64() const
+{
+	return UnderlyingSteamID.ConvertToUint64();
+}
+
+
 FString FSteamId::ToString() const
 {
 	return FString::Printf(TEXT("%llu"), UnderlyingSteamID.ConvertToUint64());

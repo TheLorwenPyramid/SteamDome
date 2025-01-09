@@ -18,7 +18,6 @@ protected:
 
 public:
 
-
 	FSteamId()
 		: UnderlyingSteamID(k_steamIDNil)
 		{}
@@ -45,7 +44,14 @@ public:
 	const CSteamID& GetCSteamID() const;
 	CSteamID& GetCSteamID();
 
+	uint64 ToUInt64() const;
+
 	FString ToString() const;
 	
 	bool IsValid() const;
 };
+
+FORCEINLINE uint32 GetTypeHash(const FSteamId& Other)
+{
+	return GetTypeHash(Other.ToUInt64());
+}
