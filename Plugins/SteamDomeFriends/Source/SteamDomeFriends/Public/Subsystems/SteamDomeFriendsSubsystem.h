@@ -71,7 +71,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void ActivateGameOverlay(const EOverlayDialogSelf OverlayDialog);
 
-	
 	/**
 	 * Activates the Steam Overlay to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.
 	 * 
@@ -80,7 +79,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void ActivateGameOverlayInviteDialog(const FSteamId SteamIDLobby);
 
-	
 	/**
 	 * Activates the Steam Overlay to the Steam store page for the provided app.
 	 *
@@ -92,7 +90,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void ActivateGameOverlayToStore(const FAppId AppId, const ESteamOverlayToStoreFlag Flag);
 
-	
 	/**
 	 * Activates Steam Overlay to a specific dialog.
 	 *
@@ -113,7 +110,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void ActivateGameOverlayToUser(const EOverlayDialogUser OverlayDialog, const FSteamId SteamId);
 
-	
 	/**
 	 * Activates Steam Overlay web browser directly to the specified URL.
 	 * 
@@ -123,14 +119,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void ActivateGameOverlayToWebPage(const FString& URL, const ESteamActivateGameOverlayToWebPageMode Mode = ESteamActivateGameOverlayToWebPageMode::Default);
 
-	
 	/**
 	 * Clears all of the current user's Rich Presence key/values.
 	 */
 	UFUNCTION(BlueprintCallable)
 	static void ClearRichPresence();
 
-	
 	/**
 	 * Closes the specified Steam group chat room in the Steam UI.
 	 * 
@@ -138,19 +132,16 @@ public:
 	 * @return 
 	 */
 	UFUNCTION(BlueprintCallable)
-	static bool CloseClanChatWindowInSteam(FSteamId SteamIdClanChat);
+	static bool CloseClanChatWindowInSteam(const FSteamId SteamIdClanChat);
 
-	
 	/** TODO: Async method
 	SteamAPICall_t DownloadClanActivityCounts(TArray<FSteamId> SteamIDClans);
 	*/
 
-	
 	/** TODO: Async method
 	SteamAPICall_t EnumerateFollowingList( uint32 unStartIndex );
 	*/
 
-	
 	/**
 	 * Gets the Steam ID at the given index in a Steam group chat.
 	 *
@@ -158,9 +149,8 @@ public:
 	 * @param UserIndex An index between 0 and GetClanChatMemberCount.
 	 */
 	UFUNCTION(BlueprintCallable)
-	static FSteamId GetChatMemberByIndex(FSteamId SteamIdClan, int UserIndex);
+	static FSteamId GetChatMemberByIndex(const FSteamId SteamIdClan, const int32 UserIndex);
 
-	
 	/**
 	 * Gets the most recent information we have about what the users in a Steam Group are doing.
 	 *
@@ -175,23 +165,24 @@ public:
 	 *		   Steam group and sets all the other parameters to 0.
 	 */
 	UFUNCTION(BlueprintCallable)
-	static bool GetClanActivityCounts(FSteamId SteamIdClan, FClanActivityCounts& ClanActivityCounts);
+	static bool GetClanActivityCounts(const FSteamId SteamIdClan, FClanActivityCounts& ClanActivityCounts);
 
-	
 	/**
 	 * This API is deprecated.
 	 * 
+	 * 
 	 * Gets the Steam group's Steam ID at the given index.
 	 *
-	 * NOTE: You must call GetClanCount before calling this.
+	 * @note NOTE: You must call GetClanCount before calling this.
+	 * @note SteamDome NOTE: Although this API is deprecated, I don't see another way to get a clan's SteamId.
+	 *		 So this method will have to do.
 	 * 
 	 * @param ClanIndex An index between 0 and GetClanCount.
-	 * @return Invalid indices return k_steamIDNil.
+	 * @return Invalid indices return an invalid SteamId.
 	 */
-	// UFUNCTION(meta=(DeprecatedFunction))
-	// static FSteamId GetClanByIndex(int32 ClanIndex);
+	UFUNCTION(BlueprintCallable)
+	static FSteamId GetClanByIndex(const int32 ClanIndex);
 
-	
 	/**
 	 * This API is deprecated.
 	 *
@@ -209,7 +200,6 @@ public:
 	// UFUNCTION(meta=(DeprecatedFunction))
 	// static int GetClanChatMemberCount(FSteamId SteamIdClan);
 
-	
 	/**
 	 * TODO: Review MessageIndex event
 	 * Gets the data from a Steam group chat room message.
@@ -232,7 +222,6 @@ public:
 		const int32 MaxMessageLength = 8193 /* 8192 + 1 */
 	);
 
-	
 	/**
 	 * Gets the number of Steam groups that the current user is a member of.
 	 *
@@ -243,7 +232,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetClanCount();
 
-	
 	/**
 	 * Gets the display name for the specified Steam group; if the local client knows about it.
 	 * 
@@ -253,7 +241,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FString GetClanName(const FSteamId& SteamIdClan);
 
-	
 	/**
 	 * Gets the Steam ID of the officer at the given index in a Steam group.
 	 *
@@ -266,7 +253,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FSteamId GetClanOfficerByIndex(const FSteamId SteamIdClan, const int32 Officer);
 
-	
 	/**
 	 * Gets the number of officers (administrators and moderators) in a specified Steam group.
 	 *
@@ -282,7 +268,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetClanOfficerCount(const FSteamId SteamIdClan);
 
-	
 	/**
 	 * Gets the owner of a Steam Group.
 	 *
@@ -294,7 +279,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FSteamId GetClanOwner(const FSteamId SteamIdClan);
 
-	
 	/**
 	 * Gets the unique tag (abbreviation) for the specified Steam group; If the local client knows about it.
 	 *
@@ -307,7 +291,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FString GetClanTag(const FSteamId SteamIdClan);
 
-
 	/**
 	 * Gets the Steam ID of the recently played with user at the given index.
 	 * 
@@ -317,11 +300,10 @@ public:
 	 * @return The SteamId of the friend. Invalid indices return an invalid SteamId.
 	 */
 	UFUNCTION(BlueprintCallable)
-	static FSteamId GetCoplayFriend(int32 CoplayFriendIndex);
+	static FSteamId GetCoplayFriend(const int32 CoplayFriendIndex);
 
 	// TODO: EXTRA Combine GetCoplayFriend and GetCoplayFriendCount into a single method for ease of use.
 
-	
 	/**
 	 * Gets the number of players that the current user has recently played with, across all games.
 	 *
@@ -333,7 +315,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static int32 GetCoplayFriendCount();
-
 
 	/**
 	 * Gets the Steam ID of the user at the given index.
@@ -359,7 +340,6 @@ public:
 	 */
 	static FSteamId GetFriendByIndex(const int32 FriendIndex, const int32 FriendFlags);
 
-
 	/**
 	 * Gets the app ID of the game that user played with someone on their recently-played-with list.
 	 * 
@@ -367,8 +347,7 @@ public:
 	 * @return Steam IDs not in the recently-played-with list return an invalid AppId.
 	 */
 	UFUNCTION(BlueprintCallable)
-	FAppId GetFriendCoplayGame(FSteamId SteamIdFriend);
-
+	FAppId GetFriendCoplayGame(const FSteamId SteamIdFriend);
 
 	/**
 	 * Gets the timestamp of when the user played with someone on their recently-played-with list.
@@ -378,8 +357,7 @@ public:
 	 *		   Steam IDs not in the recently-played-with list return 0.
 	 */
 	UFUNCTION(BlueprintCallable)
-	static int32 GetFriendCoplayTime(FSteamId SteamIdFriend);
-
+	static int32 GetFriendCoplayTime(const FSteamId SteamIdFriend);
 
 	/**
 	 * Gets the number of users the client knows about who meet a specified criteria.
@@ -394,7 +372,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendCount(UPARAM(meta=(Bitmask, BitmaskEnum=EFriendFlags)) const int32 FriendFlags);
-
 
 	/**
 	 * Get the number of users in a source (Steam group, chat room, lobby, or game server).
@@ -412,7 +389,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendCountFromSource(const FSteamId SteamIdSource);
 
-
 	/**
 	 * Gets the Steam ID at the given index from a source (Steam group, chat room, lobby, or game server).
 	 *
@@ -425,7 +401,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FSteamId GetFriendFromSourceByIndex(const FSteamId SteamIdSource, const int32 FriendIndex);
 
-
 	/**
 	 * Checks if the specified friend is in a game, and gets info about the game if they are.
 	 * 
@@ -435,7 +410,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static bool GetFriendGamePlayed(const FSteamId SteamIdFriend, FFriendGameInfo& FriendGameInfo);
-
 
 	/**
 	 * TODO: Check GameConnectedFriendChatMsg_t comment.
@@ -452,7 +426,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static bool GetFriendMessage(const FSteamId SteamIdFriend, const int32 MessageID, FChatMessage& Message, const int32 MaxExpectedLength = 8193 /* 8192 + 1*/);
-
 
 	/**
 	 * Gets the specified user's persona (display) name.
@@ -472,7 +445,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FString GetFriendPersonaName(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * Gets one of the previous display names for the specified user.
 	 *
@@ -486,7 +458,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static FString GetFriendPersonaNameHistory(const FSteamId SteamIdFriend, const int32 PersonaName);
-
 
 	/**
 	 * Gets the current status of the specified user.
@@ -502,7 +473,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static ESteamPersonaState GetFriendPersonaState(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * Gets a relationship to a specified user.
 	 * 
@@ -511,7 +481,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static ESteamFriendRelationship GetFriendRelationship(const FSteamId SteamIdFriend);
-
 
 	/**
 	 * Get a Rich Presence value from a specified friend.
@@ -523,7 +492,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FString GetFriendRichPresence(const FSteamId SteamIdFriend, const FString& Key);
 
-
 	/**
 	 * Get a Rich Presence value by its index, call GetFriendRichPresenceKeyCount to know the number of keys.
 	 * 
@@ -533,7 +501,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static FString GetFriendRichPresenceKeyByIndex(const FSteamId SteamIdFriend, const int32 KeyIndex);
-
 
 	/**
 	 * Gets the number of Rich Presence keys that are set on the specified user.
@@ -548,7 +515,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendRichPresenceKeyCount(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * Gets the number of friends groups (tags) the user has created.
 	 *
@@ -561,7 +527,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendsGroupCount();
 
-
 	/**
 	 * Gets the friends group ID for the given index.
 	 *
@@ -573,7 +538,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FFriendsGroupId GetFriendsGroupIDByIndex(const int32 FriendsGroupIndex);
 
-
 	/**
 	 * Gets the number of friends in a given friends group.
 	 *
@@ -584,7 +548,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static int32 GetFriendsGroupMembersCount(const FFriendsGroupId FriendsGroupId);
-
 
 	/**
 	 * Gets the number of friends in the given friends group.
@@ -599,8 +562,7 @@ public:
 	 *		  returned by GetFriendsGroupMembersCount.
 	 */
 	UFUNCTION(BlueprintCallable)
-	static void GetFriendsGroupMembersList(FFriendsGroupId FriendsGroupId, TArray<FSteamId>& SteamIdMembers, const int32 MembersCount);
-
+	static void GetFriendsGroupMembersList(const FFriendsGroupId FriendsGroupId, TArray<FSteamId>& SteamIdMembers, const int32 MembersCount);
 
 	/**
 	 * Gets the name for the given friends group.
@@ -610,7 +572,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static FString GetFriendsGroupName(const FFriendsGroupId FriendsGroupId);
-
 
 	/**
 	 * Gets the Steam level of the specified user.
@@ -623,8 +584,7 @@ public:
 	 *		   callback will be posted with m_nChangeFlags including k_EPersonaChangeSteamLevel.
 	 */
 	UFUNCTION(BlueprintCallable)
-	static int32 GetFriendSteamLevel(FSteamId SteamIdFriend);
-
+	static int32 GetFriendSteamLevel(const FSteamId SteamIdFriend);
 
 	/**
 	 * Gets a handle to the large (128*128px) avatar for the specified user.
@@ -645,7 +605,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetLargeFriendAvatar(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * Gets a handle to the medium (64*64px) avatar for the specified user.
 	 *
@@ -663,7 +622,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetMediumFriendAvatar(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * Gets the current user's persona (display) name.
 	 *
@@ -676,7 +634,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static FString GetPersonaName();
 
-
 	/**
 	 * Gets the friend status of the current user.
 	 *
@@ -687,7 +644,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static ESteamPersonaState GetPersonaState();
 
-
 	/**
 	 * Gets the nickname that the current user has set for the specified user.
 	 * 
@@ -696,7 +652,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static FString GetPlayerNickname(const FSteamId SteamIdPlayer);
-
 
 	/**
 	 * Gets a handle to the small (32*32px) avatar for the specified user.
@@ -715,7 +670,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetSmallFriendAvatar(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * TODO: Needs heavy testing
 	 * Checks if current user is chat restricted.
@@ -729,7 +683,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static TSet<ESteamUserRestriction> GetUserRestrictions();
 
-
 	/**
 	 * Checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc)
 	 * 
@@ -740,7 +693,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool HasFriend(const FSteamId SteamIdFriend, const TSet<ESteamFriendFlags>& FriendFlags);
 	static bool HasFriend(const FSteamId SteamIdFriend, const int32 FriendFlags);
-
 
 	/**
 	 * Invites a friend or clan member to the current game using a special invite string.
@@ -763,7 +715,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool InviteUserToGame(const FSteamId SteamIdFriend, const FString& ConnectionString);
 
-
 	/**
 	 * Checks if a user in the Steam group chat room is an admin.
 	 * 
@@ -776,7 +727,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool IsClanChatAdmin(const FSteamId SteamIdClanChat, const FSteamId SteamIdUser);
 
-
 	/**
 	 * Checks if the Steam group is public.
 	 * 
@@ -786,7 +736,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool IsClanPublic(const FSteamId SteamIdClan);
 
-
 	/**
 	 * Checks if the Steam group is an official game group/community hub.
 	 * 
@@ -795,7 +744,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static bool IsClanOfficialGameGroup(const FSteamId SteamIdClan);
-
 
 	/**
 	 * Checks if the Steam Group chat room is open in the Steam UI.
@@ -837,7 +785,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool LeaveClanChatRoom(const FSteamId SteamIdClan);
 
-
 	/**
 	 * Opens the specified Steam group chat room in the Steam UI.
 	 * 
@@ -853,7 +800,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static bool OpenClanChatWindowInSteam(const FSteamId SteamIdClanChat);
-
 
 	/**
 	 * Sends a message to a Steam friend.
@@ -885,7 +831,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void RequestFriendRichPresence(const FSteamId SteamIdFriend);
 
-
 	/**
 	 * Requests the persona name and optionally the avatar of a specified user.
 	 *
@@ -901,7 +846,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static bool RequestUserInformation(const FSteamId SteamIdUser, const bool bRequireNameOnly);
-
 
 	/**
 	 * Sends a message to a Steam group chat room.
@@ -919,7 +863,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool SendClanChatMessage(const FSteamId SteamIdClanChat, const FString& Message);
 
-
 	/**
 	 * Let Steam know that the user is currently using voice chat in game.
 	 *
@@ -929,7 +872,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static void SetInGameVoiceSpeaking(const bool bSpeaking);
-
 
 	/**
 	 * Listens for Steam friends chat messages.
@@ -946,7 +888,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void SetListenForFriendsMessages(const bool bInterceptEnabled);
 
-
 	// TODO: Async method
 	// static SteamAPICall_t SetPersonaName( const char *pchPersonaName );
 
@@ -961,7 +902,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	static void SetPlayedWith(const FSteamId SteamIdUserPlayedWith);
-
 
 	/**
 	 * Sets a Rich Presence key/value for the current user that is automatically shared to all friends
@@ -1021,7 +961,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static bool HasEquippedProfileItem(const FSteamId SteamId,const ESteamCommunityProfileItemType ItemType);
 
-
 	/**
 	 * Returns a string property for a user's equipped profile item.
 	 *
@@ -1038,7 +977,6 @@ public:
 		const ESteamCommunityProfileItemType ItemType,
 		const ESteamCommunityProfileItemProperty Prop
 	);
-
 
 	/**
 	 * Returns a signed int64 (the original Steam method returns an unsigned integer) property
@@ -1058,6 +996,7 @@ public:
 		const ESteamCommunityProfileItemProperty Prop
 	);
 
+protected:
 
 	STEAM_CALLBACK(ThisClass, OnAvatarImageLoadedCallback, AvatarImageLoaded_t);
 	STEAM_CALLBACK(ThisClass, OnPersonaStateChangeCallback, PersonaStateChange_t);

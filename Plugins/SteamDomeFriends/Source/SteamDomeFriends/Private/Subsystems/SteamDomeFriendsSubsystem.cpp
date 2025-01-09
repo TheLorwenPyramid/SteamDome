@@ -67,13 +67,13 @@ bool USteamDomeFriendsSubsystem::CloseClanChatWindowInSteam(FSteamId SteamIdClan
 }
 
 
-FSteamId USteamDomeFriendsSubsystem::GetChatMemberByIndex(FSteamId SteamIdClan, int UserIndex)
+FSteamId USteamDomeFriendsSubsystem::GetChatMemberByIndex(const FSteamId SteamIdClan, const int32 UserIndex)
 {
 	return SteamFriends()->GetChatMemberByIndex(SteamIdClan.GetCSteamID(), UserIndex);
 }
 
 
-bool USteamDomeFriendsSubsystem::GetClanActivityCounts(FSteamId SteamIdClan, FClanActivityCounts& ClanActivityCounts)
+bool USteamDomeFriendsSubsystem::GetClanActivityCounts(const FSteamId SteamIdClan, FClanActivityCounts& ClanActivityCounts)
 {
 	return SteamFriends()->GetClanActivityCounts(
 		SteamIdClan.GetCSteamID(),
@@ -81,6 +81,12 @@ bool USteamDomeFriendsSubsystem::GetClanActivityCounts(FSteamId SteamIdClan, FCl
 		&ClanActivityCounts.InGame,
 		&ClanActivityCounts.Chatting
 	);
+}
+
+
+FSteamId USteamDomeFriendsSubsystem::GetClanByIndex(const int32 ClanIndex)
+{
+	return SteamFriends()->GetClanByIndex(ClanIndex);
 }
 
 
@@ -155,7 +161,7 @@ FString USteamDomeFriendsSubsystem::GetClanTag(const FSteamId SteamIdClan)
 }
 
 
-FSteamId USteamDomeFriendsSubsystem::GetCoplayFriend(int32 CoplayFriendIndex)
+FSteamId USteamDomeFriendsSubsystem::GetCoplayFriend(const int32 CoplayFriendIndex)
 {
 	return SteamFriends()->GetCoplayFriend(CoplayFriendIndex);
 }
@@ -179,13 +185,13 @@ FSteamId USteamDomeFriendsSubsystem::GetFriendByIndex(const int32 FriendIndex, c
 }
 
 
-FAppId USteamDomeFriendsSubsystem::GetFriendCoplayGame(FSteamId SteamIdFriend)
+FAppId USteamDomeFriendsSubsystem::GetFriendCoplayGame(const FSteamId SteamIdFriend)
 {
 	return SteamFriends()->GetFriendCoplayGame(SteamIdFriend.GetCSteamID());
 }
 
 
-int32 USteamDomeFriendsSubsystem::GetFriendCoplayTime(FSteamId SteamIdFriend)
+int32 USteamDomeFriendsSubsystem::GetFriendCoplayTime(const FSteamId SteamIdFriend)
 {
 	return SteamFriends()->GetFriendCoplayTime(SteamIdFriend.GetCSteamID());
 }
@@ -346,7 +352,7 @@ FString USteamDomeFriendsSubsystem::GetFriendsGroupName(const FFriendsGroupId Fr
 }
 
 
-int32 USteamDomeFriendsSubsystem::GetFriendSteamLevel(FSteamId SteamIdFriend)
+int32 USteamDomeFriendsSubsystem::GetFriendSteamLevel(const FSteamId SteamIdFriend)
 {
 	return SteamFriends()->GetFriendSteamLevel(SteamIdFriend.GetCSteamID());
 }
@@ -377,7 +383,7 @@ ESteamPersonaState USteamDomeFriendsSubsystem::GetPersonaState()
 }
 
 
-FString USteamDomeFriendsSubsystem::GetPlayerNickname(FSteamId SteamIdPlayer)
+FString USteamDomeFriendsSubsystem::GetPlayerNickname(const FSteamId SteamIdPlayer)
 {
 	return FString(UTF8_TO_TCHAR(SteamFriends()->GetPlayerNickname(SteamIdPlayer.GetCSteamID())));
 }
