@@ -39,7 +39,7 @@ void UGetFollowerCountAsyncAction::Activate()
 void UGetFollowerCountAsyncAction::OnSteamFollowerCountCompleted(
 	FriendsGetFollowerCount_t* FollowerCount, bool bIOFailure
 ) {
-	if (bIOFailure || !FollowerCount)
+	if (bIOFailure || !FollowerCount || FollowerCount->m_eResult != k_EResultOK)
 	{
 		OnCompleted.Broadcast(false, 0);
 	}
