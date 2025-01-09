@@ -39,42 +39,49 @@
 template<typename TEvent>
 struct TSteamCallResult
 {
+	using FCallResultDelegate = TDelegate<void(TEvent* /* SteamType */, bool /* bIOFailure */)>;
+
 protected:
 
 	CCallResult<TSteamCallResult, TEvent> SteamCallback;
 
-public:
-
-	using FCallResultDelegate = TDelegate<void(TEvent* /* SteamType */, bool /* bIOFailure */)>;
-
 	TOptional<FCallResultDelegate> OnReady;
 
-
+public:
+	
 	/**
 	 * Initialize Unreal's delegate with your own callback that indicates the method/function to be called.
 	 *
-	 * Only initialized the value once per instance.
+	 * Only initialize the value once per instance of this struct.
 	 */
 	void Init(FCallResultDelegate OnReadyCallback)
 	{
 		OnReady = TOptional{ OnReadyCallback };
 	}
-
-
+	
 	/**
 	 * Bind the Steam CallResult to the delegate given in the Init method.
 	 */
-	void Bind(const SteamAPICall_t SteamAPICall)
+	bool Bind(const SteamAPICall_t SteamAPICall)
 	{
 		checkf(OnReady.IsSet(), TEXT("Missing call to FSteamCallResult::Init before FSteamCallResult::Bind execution"));
+
+		if (SteamAPICall == k_uAPICallInvalid)
+		{
+			return false;
+		}
 		
+		UE_LOG(LogTemp, Error, TEXT("Bound"));
+
 		SteamCallback.Set(SteamAPICall, this, &TSteamCallResult::OnCompleted);
+		return true;
 	}
 
 protected:
 
 	void OnCompleted(TEvent* Event, bool bIOFailure)
 	{
+		UE_LOG(LogTemp, Error, TEXT("OnCompleted"));
 		OnReady->ExecuteIfBound(Event, bIOFailure);
 	}
 };
