@@ -37,7 +37,7 @@ public:
 	/**
 	 * Asynchronously retrieves metadata details about a specific file in the depot manifest.
 	 */
-	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly, WorldContext="WorldContextObject"))
+	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly="true", WorldContext="WorldContextObject"))
 	static UGetFileDetailsAsyncAction* GetFileDetails(const UObject* WorldContextObject, const FString& Filename);
 
 	virtual void Activate() override;
